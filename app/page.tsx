@@ -7,7 +7,7 @@ import TagsSection from "@/components/sections/TagsSection";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-background selection:bg-accent-lime selection:text-primary">
+    <main className="relative min-h-screen w-full overflow-hidden bg-transparent selection:bg-accent-lime selection:text-primary">
       <Background />
       <Navbar />
       <Hero />
