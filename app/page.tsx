@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
-import Marquee from "@/components/sections/Marquee";
 import Background from "@/components/sections/Background";
 import TagsSection from "@/components/sections/TagsSection";
 
@@ -11,7 +10,6 @@ export default function Home() {
       <Background />
       <Navbar />
       <Hero />
-      <Marquee />
       <TagsSection />
     </main>
   );
