@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { siteConfig } from "@/data/site-config";
+import { OrganizationSchema, LocalBusinessSchema } from "@/components/seo/JsonLd";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,17 +16,67 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Onmog Softsol | Transforming Challenges into Sustainable Solutions",
-  description: "Multidisciplinary technology and engineering firm specializing in Rail Signaling, Staffing Solutions, and Digital Innovation. Bridging the gap between traditional infrastructure and digital innovation.",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
   keywords: ["Onmog Softsol", "Prodigy HRM", "Rail Signaling", "Staffing Solutions", "Web Development", "Digital Solutions", "Engineering", "Hyderabad"],
-  authors: [{ name: "Onmog Softsol Private Limited" }],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  verification: {
+    google: "google-site-verification-id", // User should replace this
+    yandex: "yandex-verification-id",
+  },
+  category: "technology",
   openGraph: {
-    title: "Onmog Softsol | Precision Engineering & Digital Innovation",
-    description: "Transforming complex organizational challenges into sustainable competitive advantages.",
-    url: "https://www.prodigyhrm.com",
-    siteName: "Onmog Softsol",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: "@onmogsoftsol",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -37,7 +90,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <GoogleTagManager gtmId="GTM-P6BZ7XW" />
+        <OrganizationSchema />
+        <LocalBusinessSchema />
+        {children}
+      </body>
     </html>
   );
 }
