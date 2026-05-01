@@ -21,8 +21,8 @@ export const GlassContainer = React.forwardRef<HTMLDivElement, GlassContainerPro
         className={cn(
           "backdrop-blur-xl border transition-all duration-300",
           variant === "default" 
-            ? "bg-glass-bg border-glass-border" 
-            : "bg-card-bg border-white/20 dark:border-white/10 shadow-xl",
+            ? "bg-glass-bg border-glass-border shadow-sm" 
+            : "bg-card-bg border-glass-border shadow-xl",
           className
         )}
         {...props}
@@ -46,8 +46,8 @@ export const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>
   ({ className, variant = "primary", children, ...props }, ref) => {
     const variants = {
       primary: "bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/20",
-      secondary: "bg-background/40 backdrop-blur-md border-border/50 text-foreground hover:bg-background/60",
-      outline: "bg-transparent border-border/50 text-foreground hover:bg-white/10 dark:hover:bg-white/5",
+      secondary: "bg-glass-bg backdrop-blur-md border-glass-border text-foreground hover:bg-white/80 dark:hover:bg-white/10",
+      outline: "bg-transparent border-glass-border text-foreground hover:bg-black/5 dark:hover:bg-white/5",
     };
 
     return (
@@ -83,7 +83,7 @@ export const GlassBadge = React.forwardRef<HTMLSpanElement, GlassBadgeProps>(
         ref={ref}
         className={cn(
           "inline-flex items-center gap-2 px-4 py-1.5 rounded-full",
-          "bg-background/30 backdrop-blur-md border border-border/50",
+          "bg-glass-bg backdrop-blur-md border border-glass-border",
           "text-[10px] font-black uppercase tracking-[0.2em] text-foreground/80",
           className
         )}

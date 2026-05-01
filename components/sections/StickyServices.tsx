@@ -11,41 +11,23 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
+import { SERVICES_CONFIG } from "@/data/services";
 
-const SERVICES = [
-  {
-    id: "01",
-    title: "Rail Signaling",
-    description: "Precision-engineered safety systems and signaling solutions for modern rail networks. We provide end-to-end integration of automatic train protection and interlocking systems.",
-    content: <RailSignalingContent />,
-    color: "text-blue-500",
-    bgGlow: "from-blue-500/20",
-  },
-  {
-    id: "02",
-    title: "Staffing Solutions",
-    description: "Strategic talent acquisition for high-stakes industries. We connect organizations with elite technical talent, specialized engineers, and visionary leaders.",
-    content: <StaffingSolutionsContent />,
-    color: "text-emerald-500",
-    bgGlow: "from-emerald-500/20",
-  },
-  {
-    id: "03",
-    title: "Digital Innovation",
-    description: "Accelerating digital transformation through custom software ecosystems, cloud-native architectures, and robust web applications designed for scale.",
-    content: <DigitalInnovationContent />,
-    color: "text-orange-500",
-    bgGlow: "from-orange-500/20",
-  },
-  {
-    id: "04",
-    title: "Business Strategy",
-    description: "Data-driven strategic consulting that bridges the gap between traditional operations and future-ready business models. Optimize, scale, and lead.",
-    content: <BusinessStrategyContent />,
-    color: "text-green-500",
-    bgGlow: "from-green-500/20",
-  },
+const CONTENT_MAP = [
+  <RailSignalingContent key="c1" />,
+  <StaffingSolutionsContent key="c2" />,
+  <DigitalInnovationContent key="c3" />,
+  <BusinessStrategyContent key="c4" />,
 ];
+
+const SERVICES = SERVICES_CONFIG.map((s, i) => ({
+  id: s.id,
+  title: s.title,
+  description: s.description,
+  content: CONTENT_MAP[i],
+  color: s.theme.color,
+  bgGlow: s.theme.bgGlow,
+}));
 
 const StickyServices = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,7 +38,7 @@ const StickyServices = () => {
   const glowRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       // MASTER PINNING
       ScrollTrigger.create({
         trigger: containerRef.current,
@@ -158,7 +140,7 @@ const StickyServices = () => {
               Service
             </span>
             <div className="relative h-16 w-16 flex items-center justify-center">
-               <div className="absolute inset-0 border border-foreground/10 rounded-full animate-spin-slow" />
+               <div className="absolute inset-0 border border-glass-border rounded-full animate-spin-slow" />
                <div ref={countRef} className="text-2xl font-black font-mono tracking-tighter">
                  01
                </div>
@@ -170,19 +152,19 @@ const StickyServices = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 w-full h-full relative">
+        <div className="max-w-[1400px] mx-auto px-10 w-full h-full relative">
           {SERVICES.map((service, i) => (
             <div
               key={i}
               className="absolute inset-0 flex items-center justify-center"
             >
-              <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+              <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                 {/* Left Column: Text */}
                 <div 
                   ref={(el) => { textRefs.current[i] = el; }}
                   className="relative flex flex-col justify-center items-start pr-12"
                 >
-                  <GlassBadge className="mb-6 py-2 px-4 text-xs tracking-widest uppercase border-primary/20 bg-primary/5">
+                  <GlassBadge className="mb-6 py-2 px-4 text-xs tracking-widest uppercase border-primary/30 bg-primary/10">
                     {service.title}
                   </GlassBadge>
                   
@@ -193,7 +175,7 @@ const StickyServices = () => {
                     </span>
                   </h2>
 
-                  <div className="relative pl-8 border-l border-foreground/10 py-2">
+                  <div className="relative pl-8 border-l border-glass-border py-2">
                     <p className="text-lg text-muted-foreground/80 font-medium max-w-md leading-relaxed">
                       {service.description}
                     </p>
@@ -209,11 +191,18 @@ const StickyServices = () => {
                 {/* Right Column: Visuals */}
                 <div 
                   ref={(el) => { visualRefs.current[i] = el; }}
-                  className="relative group h-[500px] w-full"
+                  className="relative group h-[700px] w-full flex items-center justify-center"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity blur-2xl" />
-                  <div className="relative w-full h-full flex items-center justify-center pointer-events-none transform transition-transform duration-700">
-                    {service.content}
+                  {/* Dynamic background glow */}
+                  <div className={cn(
+                    "absolute w-[90%] h-[90%] bg-gradient-to-br opacity-20 blur-[120px] rounded-full transition-all duration-1000",
+                    service.bgGlow
+                  )} />
+                  
+                  <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
+                    <div className="w-full max-w-2xl transform transition-all duration-700 hover:scale-[1.02]">
+                      {service.content}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -5,21 +5,19 @@ import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } fr
 import Image from "next/image";
 import {
   Rocket,
-  TrainFront,
-  Users,
-  Laptop,
-  BarChart3,
 } from "lucide-react";
 import { clients } from "@/data/clients";
 import {  GlassButton, GlassBadge } from "@/components/ui/glass";
+import { SERVICES_CONFIG } from "@/data/services";
 
 /* ─── Service cycling data ─────────────────────────────────────── */
-const SERVICES = [
-  { text: "Rail Signaling", icon: TrainFront, color: "text-blue-600", bg: "bg-blue-600", rotate: 12 },
-  { text: "Staffing Solutions", icon: Users, color: "text-emerald-500", bg: "bg-emerald-500", rotate: -12 },
-  { text: "Digital Innovation", icon: Laptop, color: "text-indigo-600", bg: "bg-indigo-600", rotate: 12 },
-  { text: "Business Strategy", icon: BarChart3, color: "text-amber-600", bg: "bg-amber-600", rotate: -12 },
-] as const;
+const SERVICES = SERVICES_CONFIG.map((s, i) => ({
+  text: s.shortTitle,
+  icon: s.icon,
+  color: s.theme.color,
+  bg: s.theme.bg,
+  rotate: i % 2 === 0 ? 12 : -12,
+}));
 
 
 /* ─── Animation variants ────────────────────────────────────────── */
@@ -103,11 +101,16 @@ const Hero = () => {
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 1.15]);
 
   useEffect(() => {
-    setMounted(true);
+    const mTimer = setTimeout(() => {
+      setMounted(true);
+    }, 0);
     timerRef.current = setInterval(() => {
       setIndex((prev) => (prev + 1) % SERVICES.length);
     }, 3200);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    return () => {
+      clearTimeout(mTimer);
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, []);
 
   const scrollStyles = mounted ? { opacity, scale } : {};
@@ -129,7 +132,7 @@ const Hero = () => {
           {...fadeUp(0)} 
           className="mb-6"
         >
-          <GlassBadge className="bg-accent-lime/30 border-accent-lime/50">
+          <GlassBadge className="bg-accent-lime/40 border-accent-lime/60 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Multidisciplinary Technology Firm
           </GlassBadge>

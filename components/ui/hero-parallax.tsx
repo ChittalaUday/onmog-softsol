@@ -9,6 +9,7 @@ import {
 } from "motion/react";
 
 
+import Image from "next/image";
 
 export const HeroParallax = ({
   products,
@@ -142,7 +143,7 @@ export const ProductCard = ({
         href={product.link}
         className="block group-hover/product:shadow-2xl "
       >
-        <img
+        <Image
           src={product.thumbnail}
           height="600"
           width="600"
