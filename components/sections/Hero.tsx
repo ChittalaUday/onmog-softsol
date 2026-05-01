@@ -14,17 +14,17 @@ import { clients } from "@/data/clients";
 
 /* ─── Service cycling data ─────────────────────────────────────── */
 const SERVICES = [
-  { text: "Rail Signaling",    icon: TrainFront, color: "text-blue-600",   bg: "bg-blue-600",   rotate:  12 },
-  { text: "Staffing Solutions",icon: Users,      color: "text-emerald-500",bg: "bg-emerald-500",rotate: -12 },
-  { text: "Digital Innovation",icon: Laptop,     color: "text-indigo-600", bg: "bg-indigo-600", rotate:  12 },
-  { text: "Business Strategy", icon: BarChart3,  color: "text-amber-600",  bg: "bg-amber-600",  rotate: -12 },
+  { text: "Rail Signaling", icon: TrainFront, color: "text-blue-600", bg: "bg-blue-600", rotate: 12 },
+  { text: "Staffing Solutions", icon: Users, color: "text-emerald-500", bg: "bg-emerald-500", rotate: -12 },
+  { text: "Digital Innovation", icon: Laptop, color: "text-indigo-600", bg: "bg-indigo-600", rotate: 12 },
+  { text: "Business Strategy", icon: BarChart3, color: "text-amber-600", bg: "bg-amber-600", rotate: -12 },
 ] as const;
 
 const SERVICE_CAPSULES = [
-  { label: "Rail Signaling",    icon: TrainFront, color: "text-blue-500"   },
-  { label: "Staffing Solutions",icon: Users,      color: "text-purple-500" },
-  { label: "Web & Digital",     icon: Laptop,     color: "text-orange-500" },
-  { label: "Growth Services",   icon: BarChart3,  color: "text-green-500"  },
+  { label: "Rail Signaling", icon: TrainFront, color: "text-blue-500" },
+  { label: "Staffing Solutions", icon: Users, color: "text-purple-500" },
+  { label: "Web & Digital", icon: Laptop, color: "text-orange-500" },
+  { label: "Growth Services", icon: BarChart3, color: "text-green-500" },
 ];
 
 /* ─── Animation variants ────────────────────────────────────────── */
@@ -37,9 +37,9 @@ const fadeUp = (delay = 0) => ({
 });
 
 const serviceVariants = {
-  enter:  { opacity: 0, y: 22,  filter: "blur(8px)" },
-  center: { opacity: 1, y: 0,   filter: "blur(0px)", transition: { duration: 0.55, ease: EASE } },
-  exit:   { opacity: 0, y: -22, filter: "blur(8px)", transition: { duration: 0.35 } },
+  enter: { opacity: 0, y: 22, filter: "blur(8px)" },
+  center: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: EASE } },
+  exit: { opacity: 0, y: -22, filter: "blur(8px)", transition: { duration: 0.35 } },
 };
 
 /* ─── Marquee strip (self-contained, no overflow) ───────────────── */
@@ -121,20 +121,21 @@ const Hero = () => {
           {...fadeUp(0.1)}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] text-[#0E4D4D] w-full"
         >
-          {/* Line 1 */}
-          <span className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
-            Driving Progress
+          <span className="flex items-center justify-center gap-x-3 whitespace-nowrap text-center">
+            <span>Driving Progress</span>
+
             <motion.span
               aria-label="Rocket"
               whileHover={{ rotate: 0, scale: 1.15 }}
               initial={{ rotate: -12 }}
               animate={{ rotate: -12 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="inline-flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 bg-accent-lime rounded-2xl shadow-xl shadow-accent-lime/30 border-4 border-white cursor-pointer"
+              className="inline-flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 bg-accent-lime rounded-2xl shadow-xl shadow-accent-lime/30 border-4 border-white cursor-pointer shrink-0"
             >
               <Rocket className="text-primary w-5 h-5 sm:w-7 sm:h-7" />
             </motion.span>
-            Across Industries
+
+            <span>Across Industries</span>
           </span>
 
           {/* Line 2 — animated service name */}
@@ -152,18 +153,6 @@ const Hero = () => {
               </motion.span>
             </AnimatePresence>
 
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={`icon-${index}`}
-                initial={{ opacity: 0, scale: 0.6, rotate: 0 }}
-                animate={{ opacity: 1, scale: 1, rotate: SERVICES[index].rotate, transition: { duration: 0.45, ease: EASE } }}
-                exit={{ opacity: 0, scale: 0.6, transition: { duration: 0.25 } }}
-                whileHover={{ rotate: 0, scale: 1.12 }}
-                className={`inline-flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 ${SERVICES[index].bg} rounded-2xl shadow-xl border-4 border-white cursor-pointer shrink-0`}
-              >
-                <CurrentIcon className="text-white w-5 h-5 sm:w-7 sm:h-7" />
-              </motion.span>
-            </AnimatePresence>
           </span>
         </motion.h1>
 
