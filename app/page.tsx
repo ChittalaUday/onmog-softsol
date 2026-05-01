@@ -3,6 +3,7 @@ import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import StickyServices from "@/components/sections/StickyServices";
 import About from "@/components/sections/About";
+import Process from "@/components/sections/Process";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <StickyServices />
       <About />
+      <Process />
     </main>
   );
 }
