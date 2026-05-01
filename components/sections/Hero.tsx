@@ -7,7 +7,8 @@ import {
   Rocket,
 } from "lucide-react";
 import { clients } from "@/data/clients";
-import {  GlassButton, GlassBadge } from "@/components/ui/glass";
+import {  GlassButton } from "@/components/ui/glass";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SERVICES_CONFIG } from "@/data/services";
 
 /* ─── Service cycling data ─────────────────────────────────────── */
@@ -35,50 +36,7 @@ const serviceVariants = {
   exit: { opacity: 0, y: -22, filter: "blur(8px)", transition: { duration: 0.35 } },
 };
 
-import Marquee from "react-fast-marquee";
-
-/* ─── Marquee strip (self-contained, no overflow) ───────────────── */
-function MarqueeStrip() {
-  const prefersReduced = useReducedMotion();
-
-  return (
-    <div className="w-full relative py-2" aria-label="Trusted clients">
-      {/* fade edges */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-32 z-10 bg-gradient-to-r from-background via-background/80 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-32 z-10 bg-gradient-to-l from-background via-background/80 to-transparent" />
-
-      <Marquee
-        gradient={false}
-        speed={40}
-        pauseOnHover={true}
-        play={!prefersReduced}
-        className="overflow-hidden"
-      >
-        {clients.map((client, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-4 mx-12 opacity-40 hover:opacity-100 grayscale hover:grayscale-0 hover:scale-110 transition-all duration-500 cursor-default"
-          >
-            {client.logoUrl && (
-              <div className="relative h-7 w-12 shrink-0">
-                <Image
-                  src={client.logoUrl}
-                  alt={`${client.name} logo`}
-                  fill
-                  sizes="48px"
-                  className="object-contain dark:invert"
-                />
-              </div>
-            )}
-            <span className="text-lg font-black text-foreground whitespace-nowrap">
-              {client.name}
-            </span>
-          </div>
-        ))}
-      </Marquee>
-    </div>
-  );
-}
+import { ClientMarquee } from "@/components/ui/ClientMarquee";
 
 /* ─── Hero ──────────────────────────────────────────────────────── */
 const Hero = () => {
@@ -132,10 +90,16 @@ const Hero = () => {
           {...fadeUp(0)} 
           className="mb-6"
         >
-          <GlassBadge className="bg-accent-lime/40 border-accent-lime/60 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Multidisciplinary Technology Firm
-          </GlassBadge>
+          <HoverBorderGradient
+            as="div"
+            containerClassName="rounded-full"
+            className="flex items-center gap-2"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-lime animate-pulse" />
+            <span className="text-[11px] font-black uppercase tracking-[0.2em]">
+              Multidisciplinary Technology Firm
+            </span>
+          </HoverBorderGradient>
         </motion.div>
 
         {/* ── H1 ── */}
@@ -207,7 +171,7 @@ const Hero = () => {
         <p className="text-center text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 mb-6">
           Trusted by category leaders
         </p>
-        <MarqueeStrip />
+        <ClientMarquee />
       </motion.div>
 
       {/* ── Scroll Down ── */}

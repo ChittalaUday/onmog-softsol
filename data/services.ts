@@ -13,7 +13,7 @@ export const SERVICES_CONFIG = [
       borderColor: "border-blue-500/20",
       shadow: "shadow-blue-500/20",
     },
-    description: "Precision-engineered safety systems and signaling solutions for modern rail networks. We provide end-to-end integration of automatic train protection and interlocking systems.",
+    description: "End-to-end safety-critical rail infrastructure solutions. From signaling design and interlocking logic to rigorous testing and commissioning, we ensure SIL-4 compliant operations for modern transit networks.",
   },
   {
     id: "02",
@@ -27,7 +27,7 @@ export const SERVICES_CONFIG = [
       borderColor: "border-emerald-500/20",
       shadow: "shadow-emerald-500/20",
     },
-    description: "Strategic talent acquisition for high-stakes industries. We connect organizations with elite technical talent, specialized engineers, and visionary leaders.",
+    description: "Bridging the talent gap with our unique 'Hire-Train-Deploy' model. We manage the full lifecycle—sourcing, screening, and compliance—to provide job-ready IT and non-IT professionals.",
   },
   {
     id: "03",
@@ -41,7 +41,7 @@ export const SERVICES_CONFIG = [
       borderColor: "border-indigo-500/20",
       shadow: "shadow-indigo-500/20",
     },
-    description: "Accelerating digital transformation through custom software ecosystems, cloud-native architectures, and robust web applications designed for scale.",
+    description: "Crafting high-performance digital ecosystems. We specialize in scalable web platforms, cloud-native architectures (AWS/K8s), and seamless ERP integrations tailored to enterprise workflows.",
   },
   {
     id: "04",
@@ -55,7 +55,7 @@ export const SERVICES_CONFIG = [
       borderColor: "border-amber-500/20",
       shadow: "shadow-amber-500/20",
     },
-    description: "Data-driven strategic consulting that bridges the gap between traditional operations and future-ready business models. Optimize, scale, and lead.",
+    description: "Driving growth through data-driven brand positioning and operational optimization. Our strategic consulting covers SEO/PPC, market scaling, and bridging physical-to-digital transitions.",
   },
 ];
 

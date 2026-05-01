@@ -24,6 +24,23 @@ const TechTag = ({ label, colorClass }: { label: string, colorClass: string }) =
   </span>
 );
 
+/**
+ * Feature List Component for "What We Provide"
+ */
+const ServiceFeatureList = ({ title, items, colorClass }: { title: string, items: string[], colorClass: string }) => (
+  <div className="flex flex-col gap-3">
+    <span className={cn("text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-50", colorClass)}>{title}</span>
+    <ul className="grid grid-cols-1 gap-2">
+      {items.map((item, i) => (
+        <li key={i} className="flex items-center gap-3 group/item">
+          <div className={cn("w-1.5 h-1.5 rounded-full transition-all duration-300 group-hover/item:scale-150", colorClass.replace('text-', 'bg-'))} />
+          <span className="text-sm font-bold text-muted-foreground/80 group-hover/item:text-foreground transition-colors">{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
 // ─── Rail Signaling ─────────────────────────────────────────────────────────
 export const RailSignalingContent = () => (
   <div className="relative w-full h-full flex flex-col items-center justify-center p-12">
@@ -60,15 +77,30 @@ export const RailSignalingContent = () => (
       </div>
 
       <div className="space-y-8">
-        <div className="flex gap-4">
-          <TechTag label="SIL-4" colorClass="bg-blue-500/10 border-blue-500/20 text-blue-500" />
-          <TechTag label="ETCS-2" colorClass="bg-blue-500/10 border-blue-500/20 text-blue-500" />
-          <TechTag label="CBTC" colorClass="bg-blue-500/10 border-blue-500/20 text-blue-500" />
-        </div>
-        
-        <div className="grid grid-cols-2 gap-12 pt-8 border-t border-border dark:border-white/5">
-          <StatItem label="Response Time" value="< 2ms" colorClass="text-blue-500" />
-          <StatItem label="Safety Integrity" value="99.99%" colorClass="text-blue-500" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="flex gap-2">
+              <TechTag label="SIL-4" colorClass="bg-blue-500/10 border-blue-500/20 text-blue-500" />
+              <TechTag label="ETCS-2" colorClass="bg-blue-500/10 border-blue-500/20 text-blue-500" />
+            </div>
+            <ServiceFeatureList 
+              title="What We Provide"
+              colorClass="text-blue-500"
+              items={[
+                "Signaling Design & Survey",
+                "Interlocking Logic Design",
+                "Installation & Commissioning",
+                "Safety Validation Trials"
+              ]}
+            />
+          </div>
+          
+          <div className="flex flex-col justify-end gap-12">
+            <div className="grid grid-cols-2 gap-8">
+              <StatItem label="Response Time" value="< 2ms" colorClass="text-blue-500" />
+              <StatItem label="Safety Level" value="SIL-4" colorClass="text-blue-500" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -112,13 +144,29 @@ export const StaffingSolutionsContent = () => (
       </div>
 
       <div className="space-y-8">
-        <p className="text-base text-muted-foreground font-medium max-w-[360px] leading-relaxed">
-          Connecting visionaries with high-stakes engineering opportunities worldwide through our global talent ecosystem.
-        </p>
-        
-        <div className="grid grid-cols-2 gap-12 pt-8 border-t border-border dark:border-white/5">
-          <StatItem label="Placements" value="12k+" colorClass="text-emerald-500" />
-          <StatItem label="Client Retention" value="98%" colorClass="text-emerald-500" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground font-medium leading-relaxed mb-4">
+              Connecting visionaries with high-stakes engineering through our global talent ecosystem.
+            </p>
+            <ServiceFeatureList 
+              title="Talent Solutions"
+              colorClass="text-emerald-500"
+              items={[
+                "Hire-Train-Deploy Model",
+                "IT & Non-IT Sourcing",
+                "Onboarding & Payroll",
+                "Compliance Management"
+              ]}
+            />
+          </div>
+          
+          <div className="flex flex-col justify-end">
+            <div className="grid grid-cols-2 gap-8">
+              <StatItem label="Placements" value="12k+" colorClass="text-emerald-500" />
+              <StatItem label="Retention" value="98%" colorClass="text-emerald-500" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -155,17 +203,31 @@ export const DigitalInnovationContent = () => (
         </div>
       </div>
 
-      <div className="space-y-6">
-        <div className="flex gap-3 flex-wrap">
-          <TechTag label="Next.js" colorClass="bg-indigo-500/10 border-indigo-500/20 text-indigo-500" />
-          <TechTag label="AWS" colorClass="bg-indigo-500/10 border-indigo-500/20 text-indigo-500" />
-          <TechTag label="Kubernetes" colorClass="bg-indigo-500/10 border-indigo-500/20 text-indigo-500" />
-          <TechTag label="GraphQL" colorClass="bg-indigo-500/10 border-indigo-500/20 text-indigo-500" />
-        </div>
-        
-        <div className="grid grid-cols-2 gap-12 pt-8 border-t border-border dark:border-white/5">
-          <StatItem label="Uptime SLA" value="99.999%" colorClass="text-indigo-500" />
-          <StatItem label="Deploy Speed" value="< 4min" colorClass="text-indigo-500" />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="flex gap-2 flex-wrap">
+              <TechTag label="Next.js" colorClass="bg-indigo-500/10 border-indigo-500/20 text-indigo-500" />
+              <TechTag label="AWS" colorClass="bg-indigo-500/10 border-indigo-500/20 text-indigo-500" />
+            </div>
+            <ServiceFeatureList 
+              title="Tech Offerings"
+              colorClass="text-indigo-500"
+              items={[
+                "Custom Web Solutions",
+                "ERP Integrations",
+                "Cloud Architecture",
+                "Agile Development"
+              ]}
+            />
+          </div>
+          
+          <div className="flex flex-col justify-end">
+            <div className="grid grid-cols-2 gap-8">
+              <StatItem label="Uptime" value="99.9%" colorClass="text-indigo-500" />
+              <StatItem label="Deploy" value="< 4min" colorClass="text-indigo-500" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -202,21 +264,31 @@ export const BusinessStrategyContent = () => (
       </div>
 
       <div className="space-y-8">
-        <div className="flex items-end gap-3 h-20">
-          {[40, 70, 50, 90, 60, 100].map((h, i) => (
-            <motion.div
-              key={i}
-              initial={{ height: 0 }}
-              animate={{ height: `${h}%` }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
-              className="flex-1 bg-amber-500/20 border-t-2 border-amber-500 rounded-t-sm"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="flex items-end gap-2 h-12">
+              {[30, 60, 40, 80, 50].map((h, i) => (
+                <div key={i} className="flex-1 bg-amber-500/20 border-t border-amber-500 rounded-t-[2px]" style={{ height: `${h}%` }} />
+              ))}
+            </div>
+            <ServiceFeatureList 
+              title="Growth Services"
+              colorClass="text-amber-500"
+              items={[
+                "Brand Strategy",
+                "SEO & PPC Management",
+                "Market Analysis",
+                "Operational Scaling"
+              ]}
             />
-          ))}
-        </div>
-        
-        <div className="grid grid-cols-2 gap-12 pt-8 border-t border-border dark:border-white/5">
-          <StatItem label="Avg. ROI" value="320%" colorClass="text-amber-500" />
-          <StatItem label="Efficiency" value="+45%" colorClass="text-amber-500" />
+          </div>
+          
+          <div className="flex flex-col justify-end">
+            <div className="grid grid-cols-2 gap-8">
+              <StatItem label="Avg. ROI" value="320%" colorClass="text-amber-500" />
+              <StatItem label="Growth" value="+45%" colorClass="text-amber-500" />
+            </div>
+          </div>
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import StickyServices from "@/components/sections/StickyServices";
-
+import About from "@/components/sections/About";
 
 export default function Home() {
   return (
@@ -10,6 +10,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <StickyServices />
+      <About />
     </main>
   );
 }
