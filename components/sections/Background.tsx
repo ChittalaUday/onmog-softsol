@@ -2,8 +2,13 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { SparklesCore } from "@/components/ui/sparkles";
+import { useTheme } from "next-themes";
 
 const Background = () => {
+  const { resolvedTheme } = useTheme();
+  const particleColor = resolvedTheme === "dark" ? "#FFFFFF" : "#000000";
+
   return (
     <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-background">
       {/* Large Concentric Circles - Slow Rotation */}
@@ -34,7 +39,7 @@ const Background = () => {
           repeat: Infinity, 
           ease: "easeInOut" 
         }}
-        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent-lime/15 blur-[140px] rounded-full" 
+        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent-lime/8 dark:bg-accent-lime/5 blur-[160px] rounded-full" 
       />
 
       <motion.div 
@@ -48,11 +53,24 @@ const Background = () => {
           repeat: Infinity, 
           ease: "easeInOut" 
         }}
-        className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-accent-cyan/15 blur-[160px] rounded-full" 
+        className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-accent-cyan/8 dark:bg-accent-cyan/5 blur-[180px] rounded-full" 
       />
 
       {/* Subtle Grid Accent */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+      
+      {/* Sparkles Effect */}
+      <div className="absolute inset-0 w-full h-full">
+        <SparklesCore
+          id="global-sparkles"
+          background="transparent"
+          minSize={0.4}
+          maxSize={1.2}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor={particleColor}
+        />
+      </div>
     </div>
   );
 };

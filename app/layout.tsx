@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/site-config";
 import { OrganizationSchema, LocalBusinessSchema } from "@/components/seo/JsonLd";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { cn } from "@/lib/utils";
+import Background from "@/components/sections/Background";
+import { ThemeProvider } from "@/components/theme-provider";
+import { DebugTools } from "@/components/debug-tools";
+
+const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
+
+const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -88,13 +96,23 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-transparent`}
+      className={cn("h-full", "antialiased", "bg-transparent", geistSans.variable, geistMono.variable, "font-sans", notoSans.variable, playfairDisplayHeading.variable)}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-transparent">
         <GoogleTagManager gtmId="GTM-P6BZ7XW" />
         <OrganizationSchema />
         <LocalBusinessSchema />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Background />
+          <DebugTools />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
