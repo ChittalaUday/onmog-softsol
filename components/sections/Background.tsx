@@ -7,7 +7,13 @@ import { useTheme } from "next-themes";
 
 const Background = () => {
   const { resolvedTheme } = useTheme();
-  const particleColor = resolvedTheme === "dark" ? "#FFFFFF" : "#000000";
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const particleColor = mounted && resolvedTheme === "dark" ? "#FFFFFF" : "#000000";
 
   return (
     <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-background">

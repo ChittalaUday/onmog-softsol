@@ -7,6 +7,7 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import { cn } from "@/lib/utils";
 import Background from "@/components/sections/Background";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { DebugTools } from "@/components/debug-tools";
 
 const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
@@ -111,7 +112,9 @@ export default function RootLayout({
         >
           <Background />
           <DebugTools />
-          {children}
+          <SmoothScrollProvider>
+            {children}
+          </SmoothScrollProvider>
         </ThemeProvider>
       </body>
     </html>
