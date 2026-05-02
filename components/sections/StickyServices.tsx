@@ -71,7 +71,7 @@ const StickyServices = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top top", 
+          start: "top top",
           end: "bottom bottom",
           scrub: 1.5,
           invalidateOnRefresh: true,
@@ -140,7 +140,7 @@ const StickyServices = () => {
     >
       <div
         ref={pinRef}
-        className="h-screen w-full flex items-center justify-center overflow-hidden"
+        className="h-screen w-full flex flex-col items-center overflow-hidden pt-32 lg:pt-0"
         style={{
           position: "relative",
           willChange: "transform"
@@ -152,11 +152,11 @@ const StickyServices = () => {
         />
 
         {/* Section Title Header */}
-        <div 
+        <div
           ref={sectionTitleRef}
-          className="absolute top-12 lg:top-28 left-1/2 -translate-x-1/2 z-30 text-center pointer-events-none w-full px-6"
+          className="relative lg:absolute lg:top-28 lg:left-1/2 lg:-translate-x-1/2 z-30 text-center pointer-events-none w-full px-6 mb-4 lg:mb-0"
         >
-          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground/60 mb-2 block">
+          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground/60 mb-1 block">
             Capabilities
           </span>
           <h2 className="text-2xl md:text-6xl font-black tracking-tighter uppercase">
@@ -183,7 +183,7 @@ const StickyServices = () => {
           </div>
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 w-full h-full relative pt-20">
+        <div className="flex-1 w-full max-w-[1400px] mx-auto px-6 lg:px-10 relative flex items-center justify-center">
           {SERVICES.map((service, i) => (
             <div
               key={i}
@@ -191,10 +191,10 @@ const StickyServices = () => {
             >
               <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 items-center">
                 {/* Left Column: Text */}
-                <div 
-                   ref={(el) => { textRefs.current[i] = el; }}
-                   className="relative flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-4 lg:pr-12"
-                   style={{ willChange: "transform, opacity" }}
+                <div
+                  ref={(el) => { textRefs.current[i] = el; }}
+                  className="relative flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-4 lg:pr-12"
+                  style={{ willChange: "transform, opacity" }}
                 >
                   <HoverBorderGradient
                     as="div"
@@ -205,7 +205,7 @@ const StickyServices = () => {
                       {service.title}
                     </span>
                   </HoverBorderGradient>
-                  
+
                   <h2 className="text-3xl md:text-8xl font-black text-foreground mb-4 lg:mb-8 leading-[0.9] tracking-tighter">
                     <span className="opacity-40">{service.title.split(" ")[0]}</span> <br className="hidden lg:block" />
                     <span className={cn("drop-shadow-2xl", service.color)}>
@@ -226,7 +226,7 @@ const StickyServices = () => {
                 </div>
 
                 {/* Right Column: Visuals */}
-                <div 
+                <div
                   ref={(el) => { visualRefs.current[i] = el; }}
                   className="relative group h-[300px] lg:h-[700px] w-full flex items-center justify-center scale-75 lg:scale-100"
                   style={{ willChange: "transform, opacity" }}

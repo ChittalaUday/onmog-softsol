@@ -7,7 +7,7 @@ import {
   Rocket,
 } from "lucide-react";
 import { clients } from "@/data/clients";
-import {  GlassButton } from "@/components/ui/glass";
+import { GlassButton } from "@/components/ui/glass";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SERVICES_CONFIG } from "@/data/services";
 
@@ -83,11 +83,11 @@ const Hero = () => {
       className="relative z-10 flex flex-col items-center justify-center h-screen w-full px-4 sm:px-6 overflow-hidden"
       aria-label="Hero"
     >
-      <div className="w-full max-w-5xl flex flex-col items-center text-center mb-24">
+      <div className="w-full max-w-7xl flex flex-col items-center text-center mb-24">
         {/* ── Badge ── */}
-        <motion.div 
+        <motion.div
           style={headingStyles}
-          {...fadeUp(0)} 
+          {...fadeUp(0)}
           className="mb-6"
         >
           <HoverBorderGradient
@@ -108,7 +108,7 @@ const Hero = () => {
           {...fadeUp(0.1)}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] text-foreground w-full"
         >
-          <span className="flex items-center justify-center gap-x-3 whitespace-nowrap text-center">
+          <span className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-x-3 text-center whitespace-normal lg:whitespace-nowrap">
             <span>Driving Progress</span>
             <motion.span
               animate={{ rotate: [-12, -8, -12] }}
