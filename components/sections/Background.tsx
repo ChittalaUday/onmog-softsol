@@ -1,40 +1,117 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue,AnimatePresence, useSpring, useTransform } from "framer-motion";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { useTheme } from "next-themes";
+import { getLightPrimaryVariants } from "@/lib/utils";
 
 const Background = () => {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
+  const [showCircles, setShowCircles] = React.useState(false);
+  const sectionRef = React.useRef<HTMLDivElement>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  // Smooth spring with a deliberate trailing lag (approx 120ms)
+  const springX = useSpring(mouseX, { stiffness: 70, damping: 26 });
+  const springY = useSpring(mouseY, { stiffness: 70, damping: 26 });
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setMounted(true);
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
+    setMounted(true);
+    
+    // Handle the loader completion event
+    const handleLoaderComplete = () => setShowCircles(true);
+    window.addEventListener("loaderComplete", handleLoaderComplete);
 
-  const particleColor = mounted && resolvedTheme === "dark" ? "#FFFFFF" : "#000000";
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("loaderComplete", handleLoaderComplete);
+      window.removeEventListener("mousemove", handleMouseMove);  
+    };
+  }, [mouseX, mouseY]);
+
+  const isDark = mounted && resolvedTheme === "dark";
+  const lightVariants = React.useMemo(() => getLightPrimaryVariants(5), []);
+  
+  // Create significantly darker variants for a stronger hover effect
+  const hoverVariants = React.useMemo(() => {
+    return lightVariants.map(v => v.replace(/oklch\(([\d.]+)%/, (_, l) => `oklch(${parseFloat(l) - 30}%`));
+  }, [lightVariants]);
+
+  // Transform snappy spring values into a refined spotlight with a sharp core
+  const maskImage = useTransform(
+    [mouseX, mouseY],
+    ([x, y]) => `radial-gradient(circle 150px at ${x}px ${y}px, black, transparent)`
+  );
 
   return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-background">
-      {/* Large Concentric Circles - Slow Rotation */}
-      <motion.div 
-        initial={{ rotate: 0 }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1500px] h-[1500px] opacity-[0.05]"
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.05" />
-          <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.05" />
-          <circle cx="50" cy="50" r="32" fill="none" stroke="currentColor" strokeWidth="0.05" />
-          <circle cx="50" cy="50" r="24" fill="none" stroke="currentColor" strokeWidth="0.05" />
-          <circle cx="50" cy="50" r="16" fill="none" stroke="currentColor" strokeWidth="0.05" />
-        </svg>
-      </motion.div>
+    <div ref={sectionRef} className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-background">
+      <AnimatePresence>
+        {showCircles && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="absolute inset-0"
+          >
+            {/* Base Layer: Concentric Circles */}
+            <motion.div 
+              initial={{ rotate: 0 }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1500px] h-[1500px] opacity-[0.12] dark:opacity-[0.05]"
+            >
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                {[48, 40, 32, 24, 16].map((r, i) => (
+                  <circle 
+                    key={r} 
+                    cx="50" 
+                    cy="50" 
+                    r={r} 
+                    fill={!isDark ? lightVariants[i] : "none"}
+                    stroke={isDark ? "currentColor" : "none"}
+                    strokeWidth="0.05" 
+                  />
+                ))}
+              </svg>
+            </motion.div>
+
+            {/* Hover Spotlight Layer (Light Mode Only) */}
+            {!isDark && (
+              <motion.div 
+                style={{ maskImage, WebkitMaskImage: maskImage }}
+                className="absolute inset-0 z-[1]"
+              >
+                <motion.div 
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1500px] h-[1500px] opacity-[0.25]"
+                >
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    {[48, 40, 32, 24, 16].map((r, i) => (
+                      <circle 
+                        key={`hover-${r}`} 
+                        cx="50" 
+                        cy="50" 
+                        r={r} 
+                        fill={hoverVariants[i]}
+                        stroke="none"
+                      />
+                    ))}
+                  </svg>
+                </motion.div>
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       {/* Blurred Blobs - Breathing & Moving */}
       <motion.div 
@@ -68,18 +145,20 @@ const Background = () => {
       {/* Subtle Grid Accent */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
       
-      {/* Sparkles Effect */}
-      <div className="absolute inset-0 w-full h-full">
-        <SparklesCore
-          id="global-sparkles"
-          background="transparent"
-          minSize={0.4}
-          maxSize={1.2}
-          particleDensity={100}
-          className="w-full h-full"
-          particleColor={particleColor}
-        />
-      </div>
+      {/* Sparkles Effect - Only in Dark Theme */}
+      {isDark && (
+        <div className="absolute inset-0 w-full h-full">
+          <SparklesCore
+            id="global-sparkles"
+            background="transparent"
+            minSize={0.4}
+            maxSize={1.2}
+            particleDensity={100}
+            className="w-full h-full"
+            particleColor="#FFFFFF"
+          />
+        </div>
+      )}
     </div>
   );
 };

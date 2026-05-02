@@ -109,7 +109,7 @@ const Process = () => {
       ref={containerRef}
       className="relative w-full bg-transparent pb-48"
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
         {/* Header (Non-sticky) */}
         <div className="py-24 lg:py-32 text-center lg:text-left">
@@ -189,7 +189,7 @@ const Process = () => {
                 ref={stickyRef}
                 className="h-[500px] w-full flex items-center justify-center"
               >
-                <div className="relative w-full aspect-square max-h-[500px] rounded-[5rem] border border-glass-border bg-card/20 backdrop-blur-3xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] group">
+                <div className="relative w-full aspect-square max-h-[500px] rounded-[5rem] border border-glass-border bg-card/20 backdrop-blur-md overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.15)] group">
 
                   {/* Dynamic Content Switching */}
                   <AnimatePresence>

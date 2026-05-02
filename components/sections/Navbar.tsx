@@ -5,7 +5,7 @@ import { siteConfig } from "@/data/site-config";
 
 const Navbar = () => {
   return (
-    <header className="fixed top-8 left-0 right-0 z-50 px-8">
+    <header className="fixed top-8 left-0 right-0 z-50">
       <nav className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">

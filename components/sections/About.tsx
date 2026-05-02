@@ -32,7 +32,7 @@ const About = () => {
         className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-lime/5 rounded-full blur-[100px] -z-10"
       />
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-end mb-32">
           <div className="flex flex-col">
