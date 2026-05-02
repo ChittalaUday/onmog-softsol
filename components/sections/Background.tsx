@@ -48,7 +48,7 @@ const Background = () => {
           repeat: Infinity, 
           ease: "easeInOut" 
         }}
-        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent-lime/8 dark:bg-accent-lime/5 blur-[160px] rounded-full" 
+        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 dark:bg-primary/8 blur-[160px] rounded-full" 
       />
 
       <motion.div 
@@ -62,7 +62,7 @@ const Background = () => {
           repeat: Infinity, 
           ease: "easeInOut" 
         }}
-        className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-accent-cyan/8 dark:bg-accent-cyan/5 blur-[180px] rounded-full" 
+        className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-secondary/15 dark:bg-secondary/8 blur-[180px] rounded-full" 
       />
 
       {/* Subtle Grid Accent */}

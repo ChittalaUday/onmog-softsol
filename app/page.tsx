@@ -4,6 +4,9 @@ import Hero from "@/components/sections/Hero";
 import StickyServices from "@/components/sections/StickyServices";
 import About from "@/components/sections/About";
 import Process from "@/components/sections/Process";
+import Testimonials from "@/components/sections/Testimonials";
+import Contact from "@/components/sections/Contact";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -13,6 +16,9 @@ export default function Home() {
       <StickyServices />
       <About />
       <Process />
+      <Testimonials />
+      <Contact />
+      <Footer />
     </main>
   );
 }

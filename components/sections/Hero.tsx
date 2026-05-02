@@ -83,7 +83,7 @@ const Hero = () => {
       className="relative z-10 flex flex-col items-center justify-center h-screen w-full px-4 sm:px-6 overflow-hidden"
       aria-label="Hero"
     >
-      <div className="w-full max-w-7xl flex flex-col items-center text-center mb-24">
+      <div className="w-full max-w-7xl flex flex-col items-center text-center pb-48">
         {/* ── Badge ── */}
         <motion.div
           style={headingStyles}
@@ -95,7 +95,7 @@ const Hero = () => {
             containerClassName="rounded-full"
             className="flex items-center gap-2"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-accent-lime animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF8A00] animate-pulse" />
             <span className="text-[11px] font-black uppercase tracking-[0.2em]">
               Multidisciplinary Technology Firm
             </span>
@@ -113,9 +113,9 @@ const Hero = () => {
             <motion.span
               animate={{ rotate: [-12, -8, -12] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="inline-flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 bg-accent-lime rounded-2xl shadow-xl shadow-accent-lime/20 border-4 border-border shrink-0"
+              className="inline-flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 bg-[#FF8A00] rounded-2xl shadow-xl shadow-[#FF8A00]/20 border-4 border-border shrink-0"
             >
-              <Rocket className="text-black w-5 h-5 sm:w-7 sm:h-7" />
+              <Rocket className="text-white w-5 h-5 sm:w-7 sm:h-7" />
             </motion.span>
             <span>Across Industries</span>
           </span>
@@ -166,7 +166,7 @@ const Hero = () => {
       {/* ── Marquee ── */}
       <motion.div
         style={footerStyles}
-        className="absolute bottom-24 w-full"
+        className="absolute bottom-32 w-full"
       >
         <p className="text-center text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 mb-6">
           Trusted by category leaders
@@ -177,15 +177,18 @@ const Hero = () => {
       {/* ── Scroll Down ── */}
       <motion.div
         style={footerStyles}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3"
       >
-        <div className="w-[20px] h-[32px] rounded-full border-2 border-foreground/20 flex justify-center p-1">
+        <div className="w-[22px] h-[36px] rounded-full border-2 border-foreground/20 flex justify-center p-1.5">
           <motion.div
-            animate={{ y: [0, 10, 0] }}
+            animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
             className="w-1 h-1 rounded-full bg-primary"
           />
         </div>
+        <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-foreground/40">
+          Scroll Down
+        </span>
       </motion.div>
     </section>
   );

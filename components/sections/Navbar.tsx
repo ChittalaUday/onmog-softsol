@@ -1,6 +1,7 @@
-import React from "react";
+import { Logo } from "@/components/ui/Logo";
 import { ModeToggle } from "@/components/mode-toggle";
 import { GlassContainer, GlassButton } from "@/components/ui/glass";
+import { siteConfig } from "@/data/site-config";
 
 const Navbar = () => {
   return (
@@ -8,12 +9,10 @@ const Navbar = () => {
       <nav className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 transition-transform hover:scale-105 cursor-pointer">
-            <div className="w-4 h-4 bg-white dark:bg-black rounded-[2px] rotate-45" />
-          </div>
+          <Logo className="w-10 h-10 transition-transform hover:scale-105 cursor-pointer" />
           <div className="flex flex-col leading-none">
-            <span className="text-xl font-bold tracking-tight text-foreground">Onmog Softsol</span>
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Prodigy HRM</span>
+            <span className="text-xl font-black tracking-tight text-foreground uppercase">{siteConfig.name}</span>
+            <span className="text-[9px] font-bold text-primary uppercase tracking-[0.2em]">Sustainable Solutions</span>
           </div>
         </div>
         

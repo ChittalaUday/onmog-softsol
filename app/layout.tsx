@@ -44,9 +44,12 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/image.png", sizes: "32x32" },
+      { url: "/favicon.ico", sizes: "any" }
+    ],
+    shortcut: "/image.png",
+    apple: "/image.png",
   },
   verification: {
     google: "google-site-verification-id", // User should replace this

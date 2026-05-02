@@ -2,21 +2,21 @@ import { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
   name: "Onmog Softsol",
-  description: "Multidisciplinary technology and engineering firm dedicated to transforming organizational challenges into sustainable competitive advantages.",
-  url: "https://prodigyhrm.com",
-  ogImage: "https://prodigyhrm.com/og.jpg",
+  description: "Transforming Challenges into Sustainable Solutions",
+  url: "https://onmog.com",
+  ogImage: "https://onmog.com/image.png",
   links: {
     twitter: "https://twitter.com/onmogsoftsol",
     github: "https://github.com/onmog",
   },
   contact: {
-    email: "info@prodigyhrm.com",
+    email: "info@onmog.com",
     phone: "+91 89776 21612",
     address: "The Business Park – by Pranava Group, 4th Floor, Kondapur, Hyderabad, Telangana - 500084",
   },
   tags: [
     "Onmog Softsol Private Limited",
-    "Prodigy HRM",
+    "Digital Transformation",
     "Rail Signaling Design",
     "Rail Signaling Testing",
     "Rail Signaling Commissioning",

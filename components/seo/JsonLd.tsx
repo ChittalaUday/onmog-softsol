@@ -31,6 +31,7 @@ export const OrganizationSchema = () => {
 
   return (
     <script
+      id="organization-schema"
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
@@ -55,7 +56,7 @@ export const LocalBusinessSchema = () => {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 17.4622, // Approximate for Kondapur
+      "latitude": 17.4622,
       "longitude": 78.3568
     },
     "openingHoursSpecification": {
@@ -64,18 +65,19 @@ export const LocalBusinessSchema = () => {
       "opens": "09:00",
       "closes": "18:00"
     },
-    "knowsAbout": ["Web Development", "IT Services", "Rail Signaling", "Staffing Solutions"],
+    "knowsAbout": ["Sustainable Digital Solutions", "Enterprise Engineering", "Rail Infrastructure Technology", "Staffing & Workforce Management", "Strategic Business Consulting"],
     "subjectOf": [
       {
         "@type": "WebPage",
-        "name": "Dharani Life Sciences",
-        "url": "https://www.dharanilifesciences.com/"
+        "name": siteConfig.name,
+        "url": siteConfig.url
       }
     ]
   };
 
   return (
     <script
+      id="local-business-schema"
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />

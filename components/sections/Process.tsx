@@ -261,7 +261,7 @@ const Process = () => {
         </div>
 
         {/* Conclusion / Final CTA Area - Spans full width on desktop */}
-        <div className="lg:col-span-2 pb-24 lg:pb-32 px-6 lg:px-0">
+        <div className="lg:col-span-2 px-6 lg:px-0">
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-12">
             <div className="max-w-2xl">
               <div className="flex items-center gap-6 mb-8 opacity-40">

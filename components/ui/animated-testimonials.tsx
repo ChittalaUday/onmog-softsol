@@ -1,11 +1,11 @@
 "use client";
 
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import { motion, AnimatePresence } from "motion/react";
-
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
-type Testimonial = {
+export type Testimonial = {
   quote: string;
   name: string;
   designation: string;
@@ -19,6 +19,11 @@ export const AnimatedTestimonials = ({
   autoplay?: boolean;
 }) => {
   const [active, setActive] = useState(0);
+  const [rotations, setRotations] = useState<number[]>([]);
+
+  useEffect(() => {
+    setRotations(testimonials.map(() => Math.floor(Math.random() * 21) - 10));
+  }, [testimonials]);
 
   const handleNext = () => {
     setActive((prev) => (prev + 1) % testimonials.length);
@@ -39,8 +44,8 @@ export const AnimatedTestimonials = ({
     }
   }, [autoplay]);
 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
+  const getRotation = (index: number) => {
+    return rotations[index] || 0;
   };
   return (
     <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
@@ -55,13 +60,13 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: randomRotateY(),
+                    rotate: getRotation(index),
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: isActive(index) ? 0 : getRotation(index),
                     zIndex: isActive(index)
                       ? 40
                       : testimonials.length + 2 - index,
@@ -71,7 +76,7 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: randomRotateY(),
+                    rotate: getRotation(index),
                   }}
                   transition={{
                     duration: 0.4,
@@ -79,17 +84,33 @@ export const AnimatedTestimonials = ({
                   }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <img
+                  <Image
                     src={testimonial.src}
                     alt={testimonial.name}
                     width={500}
                     height={500}
                     draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-center"
+                    priority={isActive(index)}
+                    className="h-full w-full rounded-[2.5rem] object-cover object-center shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
                   />
                 </motion.div>
               ))}
             </AnimatePresence>
+          </div>
+          
+          <div className="flex gap-4 pt-8 justify-center md:justify-start">
+            <button
+              onClick={handlePrev}
+              className="group/button flex h-12 w-12 items-center justify-center rounded-2xl bg-foreground/5 border border-foreground/10 transition-all hover:bg-primary hover:border-primary"
+            >
+              <IconArrowLeft className="h-6 w-6 text-foreground transition-all group-hover/button:text-primary-foreground group-hover/button:-translate-x-1" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="group/button flex h-12 w-12 items-center justify-center rounded-2xl bg-foreground/5 border border-foreground/10 transition-all hover:bg-primary hover:border-primary"
+            >
+              <IconArrowRight className="h-6 w-6 text-foreground transition-all group-hover/button:text-primary-foreground group-hover/button:translate-x-1" />
+            </button>
           </div>
         </div>
         <div className="flex flex-col justify-between py-4">
@@ -112,13 +133,13 @@ export const AnimatedTestimonials = ({
               ease: "easeInOut",
             }}
           >
-            <h3 className="text-2xl font-bold text-black dark:text-white">
+            <h3 className="text-3xl lg:text-4xl font-black tracking-tight text-foreground">
               {testimonials[active].name}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-neutral-500">
+            <p className="text-sm font-black uppercase tracking-[0.3em] text-primary mt-2">
               {testimonials[active].designation}
             </p>
-            <motion.p className="mt-8 text-lg text-gray-500 dark:text-neutral-300">
+            <motion.p className="mt-8 text-xl lg:text-2xl text-muted-foreground font-medium leading-relaxed italic">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -144,20 +165,6 @@ export const AnimatedTestimonials = ({
               ))}
             </motion.p>
           </motion.div>
-          <div className="flex gap-4 pt-12 md:pt-0">
-            <button
-              onClick={handlePrev}
-              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
-            >
-              <IconArrowLeft className="h-5 w-5 text-black transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
-            </button>
-            <button
-              onClick={handleNext}
-              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
-            >
-              <IconArrowRight className="h-5 w-5 text-black transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
-            </button>
-          </div>
         </div>
       </div>
     </div>
