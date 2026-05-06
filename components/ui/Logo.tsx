@@ -8,6 +8,7 @@ export const Logo = ({ className = "w-12 h-12" }: { className?: string }) => (
       src="/image.png"
       alt="Onmog Logo"
       fill
+      sizes="48px"
       className="object-contain dark:brightness-0 dark:invert transition-all"
       priority
     />
@@ -21,6 +22,7 @@ export const LogoFull = ({ className = "" }: { className?: string }) => (
         src="/image.png"
         alt="Onmog Logo"
         fill
+        sizes="96px"
         className="object-contain dark:brightness-0 dark:invert transition-all"
         priority
       />

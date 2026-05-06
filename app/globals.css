@@ -216,3 +216,13 @@ body {
     @apply font-sans;
   }
 }
+
+/* Home Page Loading Orchestration */
+body.is-loading .layout-fade-in {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.layout-fade-in {
+  transition: opacity 1s ease-in-out;
+}

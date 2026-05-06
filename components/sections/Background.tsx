@@ -4,6 +4,7 @@ import React from "react";
 import { motion, useMotionValue,AnimatePresence, useSpring, useTransform } from "framer-motion";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
 import { getLightPrimaryVariants } from "@/lib/utils";
 
 const Background = () => {
@@ -18,8 +19,15 @@ const Background = () => {
   const springX = useSpring(mouseX, { stiffness: 70, damping: 26 });
   const springY = useSpring(mouseY, { stiffness: 70, damping: 26 });
 
+  const pathname = usePathname();
+
   React.useEffect(() => {
     setMounted(true);
+    
+    // On subpages, show circles immediately. On home page, wait for loader.
+    if (pathname !== "/") {
+      setShowCircles(true);
+    }
     
     // Handle the loader completion event
     const handleLoaderComplete = () => setShowCircles(true);
@@ -34,7 +42,7 @@ const Background = () => {
       window.removeEventListener("loaderComplete", handleLoaderComplete);
       window.removeEventListener("mousemove", handleMouseMove);  
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, pathname]);
 
   const isDark = mounted && resolvedTheme === "dark";
   const lightVariants = React.useMemo(() => getLightPrimaryVariants(5), []);

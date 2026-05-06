@@ -2,69 +2,73 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import StickyServices from "@/components/sections/StickyServices";
 import About from "@/components/sections/About";
 import Process from "@/components/sections/Process";
 import Testimonials from "@/components/sections/Testimonials";
-import Contact from "@/components/sections/Contact";
-import Footer from "@/components/sections/Footer";
 import { ParticleLoader } from "@/components/ui/particle-loader";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
-  const [mounted, setMounted] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !sessionStorage.getItem("appLoaded");
+    }
+    return true;
+  });
+
+  const [mounted, setMounted] = useState(!isInitialLoad);
+  const [loading, setLoading] = useState(isInitialLoad);
 
   useEffect(() => {
-    // Detect when the window is fully loaded
+    if (loading && isInitialLoad) {
+      document.body.classList.add("is-loading");
+    } else {
+      document.body.classList.remove("is-loading");
+    }
+    return () => document.body.classList.remove("is-loading");
+  }, [loading, isInitialLoad]);
+
+  useEffect(() => {
+    if (!isInitialLoad) return;
+
     const handleLoad = () => setMounted(true);
     
     if (document.readyState === "complete") {
       setMounted(true);
     } else {
       window.addEventListener("load", handleLoad);
-      // Fallback: don't wait forever if there's a slow resource
-      const fallback = setTimeout(() => setMounted(true), 8000);
+      const fallback = setTimeout(() => setMounted(true), 3000);
       return () => {
         window.removeEventListener("load", handleLoad);
         clearTimeout(fallback);
       };
     }
-  }, []);
-
-  useEffect(() => {
-    if (!loading) {
-      // Trigger a resize event to refresh Lenis, ScrollTrigger, and other layout engines
-      window.dispatchEvent(new Event("resize"));
-    }
-  }, [loading]);
+  }, [isInitialLoad]);
 
   return (
     <>
-      <ParticleLoader 
-        isReady={mounted} 
-        onComplete={() => {
-          setLoading(false);
-          window.dispatchEvent(new CustomEvent("loaderComplete"));
-        }} 
-      />
+      {isInitialLoad && (
+        <ParticleLoader 
+          isReady={mounted} 
+          onComplete={() => {
+            setLoading(false);
+            sessionStorage.setItem("appLoaded", "true");
+            window.dispatchEvent(new CustomEvent("loaderComplete"));
+          }} 
+        />
+      )}
       
-      <main 
-        className={cn(
-          "relative min-h-screen w-full overflow-x-hidden bg-transparent selection:bg-secondary selection:text-secondary-foreground transition-opacity duration-1000",
-          loading ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
-        )}
-      >
-        <Navbar />
+      <div className={cn(
+        "transition-opacity duration-500",
+        loading && isInitialLoad ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+      )}>
         <Hero show={!loading} />
         <StickyServices />
         <About />
         <Process />
         <Testimonials />
-        <Contact />
-        <Footer />
-      </main>
+      </div>
     </>
   );
 }

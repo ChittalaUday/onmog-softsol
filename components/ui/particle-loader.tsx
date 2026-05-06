@@ -215,8 +215,8 @@ export const ParticleLoader = ({
   // Phase control logic
   useEffect(() => {
     if (!mounted) return;
-    const gatheringTimer = setTimeout(() => setPhase("rotating"), 1600);
-    const rotatingTimer = setTimeout(() => setMinRotationDone(true), 3200);
+    const gatheringTimer = setTimeout(() => setPhase("rotating"), 500);
+    const rotatingTimer = setTimeout(() => setMinRotationDone(true), 1000);
     return () => {
       clearTimeout(gatheringTimer);
       clearTimeout(rotatingTimer);
@@ -230,7 +230,7 @@ export const ParticleLoader = ({
       const timer = setTimeout(() => {
         setIsVisible(false);
         onComplete?.();
-      }, 1000);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [minRotationDone, isReady, onComplete]);
@@ -243,7 +243,7 @@ export const ParticleLoader = ({
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.0, ease: "linear" }}
+          transition={{ duration: 0.5, ease: "linear" }}
           className={cn(
             "fixed inset-0 z-[9999] flex items-center justify-center transition-colors duration-500 overflow-hidden",
             isDark ? "bg-black" : "bg-white"

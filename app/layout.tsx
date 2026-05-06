@@ -9,6 +9,10 @@ import Background from "@/components/sections/Background";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { DebugTools } from "@/components/debug-tools";
+import AppLayout from "@/components/layout/AppLayout";
+import Navbar from "@/components/sections/Navbar";
+import Contact from "@/components/sections/Contact";
+import Footer from "@/components/sections/Footer";
 
 const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
 
@@ -116,7 +120,16 @@ export default function RootLayout({
           <Background />
           <DebugTools />
           <SmoothScrollProvider>
-            {children}
+            <div className="layout-fade-in">
+              <Navbar />
+            </div>
+            <AppLayout>
+              {children}
+            </AppLayout>
+            <div className="layout-fade-in">
+              <Contact />
+              <Footer />
+            </div>
           </SmoothScrollProvider>
         </ThemeProvider>
       </body>
