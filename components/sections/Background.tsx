@@ -6,6 +6,7 @@ import { SparklesCore } from "@/components/ui/sparkles";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { getLightPrimaryVariants } from "@/lib/utils";
+import { useAppRuntimeStore } from "@/stores/app-runtime.store";
 
 const Background = () => {
   const { resolvedTheme } = useTheme();
@@ -16,22 +17,18 @@ const Background = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   // Smooth spring with a deliberate trailing lag (approx 120ms)
-  const springX = useSpring(mouseX, { stiffness: 70, damping: 26 });
   const springY = useSpring(mouseY, { stiffness: 70, damping: 26 });
 
+  const { introComplete } = useAppRuntimeStore();
   const pathname = usePathname();
 
   React.useEffect(() => {
     setMounted(true);
     
-    // On subpages, show circles immediately. On home page, wait for loader.
-    if (pathname !== "/") {
+    // Show circles if loader finished, or if we are not on home
+    if (pathname !== "/" || introComplete) {
       setShowCircles(true);
     }
-    
-    // Handle the loader completion event
-    const handleLoaderComplete = () => setShowCircles(true);
-    window.addEventListener("loaderComplete", handleLoaderComplete);
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -39,10 +36,9 @@ const Background = () => {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
-      window.removeEventListener("loaderComplete", handleLoaderComplete);
       window.removeEventListener("mousemove", handleMouseMove);  
     };
-  }, [mouseX, mouseY, pathname]);
+  }, [mouseX, mouseY, pathname, introComplete]);
 
   const isDark = mounted && resolvedTheme === "dark";
   const lightVariants = React.useMemo(() => getLightPrimaryVariants(5), []);

@@ -6,14 +6,21 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { useAnimationLifecycle } from "@/hooks/use-animation-lifecycle";
+import { useTransitionStore } from "@/stores/transition.store";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const SmoothScrollProvider = ({ children }: { children: React.ReactNode }) => {
   const lenisRef = useRef<Lenis | null>(null);
+  const { isTransitioning } = useTransitionStore();
+  const initLocked = useRef(false);
+  
   useAnimationLifecycle();
 
   useEffect(() => {
+    if (initLocked.current) return;
+    initLocked.current = true;
+
     const lenis = new Lenis({
       duration: 2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -43,8 +50,18 @@ export const SmoothScrollProvider = ({ children }: { children: React.ReactNode }
       window.removeEventListener("resize", handleResize);
       lenis.destroy();
       gsap.ticker.remove(lenis.raf);
+      initLocked.current = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!lenisRef.current) return;
+    if (isTransitioning) {
+      lenisRef.current.stop();
+    } else {
+      lenisRef.current.start();
+    }
+  }, [isTransitioning]);
 
   return (
     <ParallaxProvider>

@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { cn, getLightPrimaryVariants } from "@/lib/utils";
+import gsap from "gsap";
 
 interface Particle {
   x: number;
@@ -51,7 +52,6 @@ export const ParticleLoader = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId: number;
     const particleCount = 300;
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
@@ -168,7 +168,8 @@ export const ParticleLoader = ({
           const dy = p.finalY - p.y;
           p.x += dx * 0.03;
           p.y += dy * 0.03;
-          ctx.globalAlpha = Math.max(0, 1 - (animationFrameId % 100) / 100);
+          // Use ticker time or just decay
+          ctx.globalAlpha = Math.max(0, 1 - (gsap.ticker.frame % 100) / 100);
         }
 
         const twinkle = Math.sin(Date.now() * 0.005 + i) * 0.5 + 0.5;
@@ -190,14 +191,12 @@ export const ParticleLoader = ({
           ctx.shadowBlur = 0;
         }
       });
-
-      animationFrameId = requestAnimationFrame(animate);
     };
 
     if (!isInitialized.current) {
       init();
     }
-    animate();
+    gsap.ticker.add(animate);
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -207,7 +206,7 @@ export const ParticleLoader = ({
     window.addEventListener("resize", handleResize);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      gsap.ticker.remove(animate);
       window.removeEventListener("resize", handleResize);
     };
   }, [phase, isDark, mounted]);
@@ -223,17 +222,20 @@ export const ParticleLoader = ({
     };
   }, [mounted]);
 
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
+
   // Handle actual app load completion
   useEffect(() => {
     if (minRotationDone && isReady) {
       setPhase("disperse");
       const timer = setTimeout(() => {
         setIsVisible(false);
-        onComplete?.();
+        onCompleteRef.current?.();
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [minRotationDone, isReady, onComplete]);
+  }, [minRotationDone, isReady]);
 
   if (!mounted) return null;
 

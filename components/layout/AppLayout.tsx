@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { PageTransition } from "@/components/ui/page-transition";
+import { TransitionOverlay } from "@/components/runtime/TransitionOverlay";
 import { cn } from "@/lib/utils";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -16,9 +16,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         isHome ? "selection:bg-secondary selection:text-secondary-foreground" : "selection:bg-primary selection:text-primary-foreground"
       )}
     >
-      <PageTransition>
+      <TransitionOverlay>
         {children}
-      </PageTransition>
+      </TransitionOverlay>
     </div>
   );
 }
