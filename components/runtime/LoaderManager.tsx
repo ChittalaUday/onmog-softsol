@@ -9,24 +9,21 @@ export const LoaderManager = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (stage !== 'BOOT' && stage !== 'INIT') {
+    if (stage === 'READY') {
       setMounted(true);
       return;
     }
 
-    const initTimer = setTimeout(() => {
-      setStage('INIT');
-    }, 100);
-    
-    const readyTimer = setTimeout(() => {
-      setMounted(true);
-    }, 1000);
+    if (stage === 'BOOT') {
+      const timer = setTimeout(() => setStage('INIT'), 100);
+      return () => clearTimeout(timer);
+    }
 
-    return () => {
-      clearTimeout(initTimer);
-      clearTimeout(readyTimer);
-    };
-  }, [stage, setStage]);
+    if (stage === 'INIT' && !mounted) {
+      const timer = setTimeout(() => setMounted(true), 800);
+      return () => clearTimeout(timer);
+    }
+  }, [stage, setStage, mounted]);
 
   if (stage === 'READY') return null;
 

@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import React, { useState, useMemo, useRef } from "react";
 import { 
   motion, 
   AnimatePresence, 
   useScroll, 
   useTransform 
-} from "motion/react";
+} from "framer-motion";
 import { allServices, ServiceItem } from "@/data/all-services";
 import { cn } from "@/lib/utils";
 import { 
@@ -93,9 +94,9 @@ const ServiceCard = ({ service, index }: { service: ServiceItem, index: number }
               </div>
             </div>
             
-            <button className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all group/btn">
+            <Link href={`/services/${service.id}`} className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all group/btn">
               <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -106,7 +107,6 @@ const ServiceCard = ({ service, index }: { service: ServiceItem, index: number }
 export function ServicesPageClient() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
-  const [sortBy, setSortBy] = useState("Name");
   
   const categories = useMemo(() => ["All", ...Array.from(new Set(allServices.map(s => s.category)))], []);
   
@@ -116,15 +116,10 @@ export function ServicesPageClient() {
       (activeCategory === "All" || s.category === activeCategory)
     );
 
-    if (sortBy === "Name") {
-      results.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (sortBy === "Complexity") {
-      const order: Record<string, number> = { "Enterprise": 3, "Advanced": 2, "Basic": 1 };
-      results.sort((a, b) => (order[b.complexity] || 0) - (order[a.complexity] || 0));
-    }
+    // No sorting applied; retain original order
     
     return results;
-  }, [search, activeCategory, sortBy]);
+  }, [search, activeCategory]);
 
   return (
     <div className="relative min-h-screen w-full bg-transparent pt-32 lg:pt-48 pb-32">
@@ -172,26 +167,6 @@ export function ServicesPageClient() {
               ))}
             </div>
 
-            <div className="flex items-center gap-3 bg-card/20 border border-glass-border rounded-full p-1 backdrop-blur-xl ml-auto">
-              <button 
-                onClick={() => setSortBy("Name")}
-                className={cn(
-                  "px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest transition-all",
-                  sortBy === "Name" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Alphabetical
-              </button>
-              <button 
-                onClick={() => setSortBy("Complexity")}
-                className={cn(
-                  "px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest transition-all",
-                  sortBy === "Complexity" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Complexity
-              </button>
-            </div>
           </div>
         </div>
 

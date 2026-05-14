@@ -140,9 +140,8 @@ const StickyServices = () => {
     >
       <div
         ref={pinRef}
-        className="h-screen w-full flex flex-col items-center overflow-hidden pt-32 lg:pt-0"
+        className="relative min-h-screen w-full flex flex-col items-center overflow-hidden pt-32 lg:pt-0"
         style={{
-          position: "relative",
           willChange: "transform"
         }}
       >

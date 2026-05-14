@@ -34,9 +34,11 @@ export const SmoothScrollProvider = ({ children }: { children: React.ReactNode }
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const rafHandler = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+
+    gsap.ticker.add(rafHandler);
 
     gsap.ticker.lagSmoothing(0);
 
@@ -49,7 +51,7 @@ export const SmoothScrollProvider = ({ children }: { children: React.ReactNode }
     return () => {
       window.removeEventListener("resize", handleResize);
       lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
+      gsap.ticker.remove(rafHandler);
       initLocked.current = false;
     };
   }, []);

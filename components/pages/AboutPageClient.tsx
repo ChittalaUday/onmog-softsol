@@ -6,9 +6,10 @@ import {
   useScroll, 
   useTransform, 
   useInView,
-} from "motion/react";
+} from "framer-motion";
 import { Shield, Target, ArrowDown, Zap, Globe, Cpu, AlertTriangle, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Team from "@/components/sections/Team";
 
 // --- Components ---
 
@@ -234,6 +235,7 @@ export function AboutPageClient() {
       <WhoWeAre />
       <TheProblem />
       <TheSolution />
+      <Team />
       <TheVision />
     </div>
   );

@@ -18,10 +18,8 @@ export function ClientMarquee() {
       <div 
         className="overflow-hidden"
         style={{
-          maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
-          maskComposite: "intersect",
-          WebkitMaskComposite: "source-in, xor", // For older Safari compatibility
+          maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
         }}
       >
         <Marquee

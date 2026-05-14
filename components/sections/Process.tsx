@@ -126,7 +126,7 @@ const Process = () => {
           className="grid grid-cols-1 lg:grid-cols-2 gap-x-24 items-start relative"
         >
           {/* Methodology Container: Steps + Sticky Card */}
-          <div ref={stepsRef} className="lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-x-24 items-start">
+          <div ref={stepsRef} className="relative lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-x-24 items-start">
             {/* Left Column: Full-height Scrolling Timeline & Descriptions */}
             <div className="relative flex flex-col">
 
@@ -187,7 +187,7 @@ const Process = () => {
             <div className="hidden lg:block relative h-full">
               <div
                 ref={stickyRef}
-                className="h-[500px] w-full flex items-center justify-center"
+                className="relative h-[500px] w-full flex items-center justify-center"
               >
                 <div className="relative w-full aspect-square max-h-[500px] rounded-[5rem] border border-glass-border bg-card/20 backdrop-blur-md overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.15)] group">
 

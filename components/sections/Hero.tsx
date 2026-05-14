@@ -120,10 +120,10 @@ const Hero = ({ show = true }: { show?: boolean }) => {
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 flex flex-col items-center justify-center h-screen w-full px-4 sm:px-6 overflow-hidden"
+      className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 overflow-hidden pt-24 sm:pt-32 lg:pt-0"
       aria-label="Hero"
     >
-      <div className="w-full max-w-7xl flex flex-col items-center text-center pb-48">
+      <div className="w-full max-w-7xl flex flex-col items-center text-center pb-24 sm:pb-32 lg:pb-48">
         {/* ── Badge ── */}
         <motion.div
           style={headingStyles}

@@ -5,14 +5,18 @@ import { TransitionRouter } from "next-transition-router";
 import { useTransitionStore } from "@/stores/transition.store";
 import gsap from "gsap";
 import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 export const TransitionOverlay = ({ children }: { children: React.ReactNode }) => {
-  const { setIsTransitioning, transitionLocked, setTransitionLocked, setStage } = useTransitionStore();
+  const { isTransitioning, setIsTransitioning, transitionLocked, setTransitionLocked, setStage } = useTransitionStore();
   const overlayRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
 
-  const onLeave = (next: () => void) => {
-    if (transitionLocked) return;
+  const onLeave = React.useCallback((next: () => void) => {
+    if (transitionLocked || !overlayRef.current) {
+      next();
+      return;
+    }
     setTransitionLocked(true);
     setIsTransitioning(true);
     setStage('EXITING');
@@ -26,16 +30,27 @@ export const TransitionOverlay = ({ children }: { children: React.ReactNode }) =
         next();
       }
     });
-  };
+  }, [transitionLocked, setIsTransitioning, setStage, setTransitionLocked]);
 
-  const onEnter = (next: () => void) => {
+  const onEnter = React.useCallback((next: () => void) => {
     setStage('ENTERING');
+    
+    if (!overlayRef.current) {
+      setIsTransitioning(false);
+      setTransitionLocked(false);
+      setStage('COMPLETE');
+      next();
+      return;
+    }
+
     gsap.to(overlayRef.current, {
       y: "-100%",
       duration: 0.6,
       ease: "power3.inOut",
       onComplete: () => {
-        gsap.set(overlayRef.current, { y: "100%" });
+        if (overlayRef.current) {
+          gsap.set(overlayRef.current, { y: "100%" });
+        }
         setIsTransitioning(false);
         setTransitionLocked(false);
         setStage('COMPLETE');
@@ -44,16 +59,26 @@ export const TransitionOverlay = ({ children }: { children: React.ReactNode }) =
         setTimeout(() => setStage('IDLE'), 50);
       }
     });
-  };
+  }, [setIsTransitioning, setStage, setTransitionLocked]);
+
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
 
   return (
     <>
       <div 
         ref={overlayRef}
-        className="fixed inset-0 z-[999] flex flex-col items-center justify-center pointer-events-none translate-y-full transition-colors duration-300"
-        style={{ backgroundColor: resolvedTheme === 'dark' ? '#0a0a0a' : '#ffffff' }}
+        className={cn(
+          "fixed inset-0 z-[100] flex items-center justify-center bg-background transition-colors duration-300",
+          isTransitioning ? "pointer-events-auto" : "pointer-events-none"
+        )}
+        style={{
+          backgroundColor: mounted ? (resolvedTheme === 'dark' ? '#0a0a0a' : '#ffffff') : '#ffffff',
+          transform: "translateY(100%)",
+          willChange: "transform"
+        }}
       >
-        <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+        <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]" />
       </div>
 
       <TransitionRouter

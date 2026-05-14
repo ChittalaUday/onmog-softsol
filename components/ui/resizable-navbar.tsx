@@ -6,7 +6,7 @@ import {
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
-} from "motion/react";
+} from "framer-motion";
 
 import React, { useRef, useState } from "react";
 import Link from "next/link";
@@ -69,7 +69,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   return (
     <motion.div
       ref={ref}
-      className={cn("fixed inset-x-0 top-4 z-50 w-full px-4", className)}
+      className={cn("fixed inset-x-0 top-0 lg:top-4 z-50 w-full lg:px-4", className)}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)

@@ -13,8 +13,7 @@ const Testimonials = dynamic(() => import("@/components/sections/Testimonials"),
 
 export default function Home() {
   const { stage } = useAppRuntimeStore();
-  const { isTransitioning } = useTransitionStore();
-  const loading = stage !== 'READY' || isTransitioning;
+  const loading = stage !== 'READY';
 
   return (
     <div className={cn(
