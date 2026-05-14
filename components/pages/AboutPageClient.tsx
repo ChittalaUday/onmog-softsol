@@ -35,43 +35,51 @@ const WhoWeAre = () => {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-[90vh] w-full overflow-hidden flex items-center justify-center pt-32 lg:pt-48"
+      className="relative min-h-screen w-full overflow-hidden flex items-center pt-20"
     >
+      {/* Background Image with Parallax */}
+      <motion.div 
+        style={{ y, opacity }}
+        className="absolute inset-0 z-0"
+      >
+        <div className="absolute inset-0 bg-background/60 backdrop-blur-sm z-10" />
+        <img 
+          src="/Users/udaychittala/.gemini/antigravity/brain/560c1716-fa62-452a-a27b-ec097a15bc22/about_hero_abstract_engineering_1778743320577.png"
+          alt="Abstract Engineering"
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+
       <div className="relative z-10 px-6 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
             <SectionHeader 
-              subtitle="01. Identity" 
-              title={<>Precision <br /> <span className="text-primary italic">Redefined.</span></>} 
+              subtitle="01. About Us" 
+              title={<>Safe Engineering <br /> <span className="text-primary italic">Simplified.</span></>} 
             />
-            <p className="text-xl md:text-3xl text-muted-foreground font-medium leading-tight max-w-xl">
-              Onmog Softsol is a premier engineering and technology powerhouse bridging the gap between <span className="text-foreground underline decoration-primary underline-offset-4">traditional infrastructure</span> and <span className="text-foreground underline decoration-primary underline-offset-4">digital innovation.</span>
-            </p>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="hidden lg:flex justify-end"
-          >
-            <div className="relative w-96 h-96 rounded-[4rem] border border-primary/10 flex items-center justify-center overflow-hidden bg-primary/5 backdrop-blur-3xl shadow-2xl">
-               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
-               <Cpu className="w-40 h-40 text-primary opacity-30 animate-pulse-slow" />
+            
+            <div className="relative p-8 md:p-12 rounded-[3rem] bg-card/10 backdrop-blur-2xl border border-glass-border shadow-2xl mt-12 group overflow-hidden">
+               {/* Decorative Gradient */}
+               <div className="absolute -top-24 -left-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors" />
                
-               {/* Decorative bits */}
-               <div className="absolute top-10 right-10 w-2 h-2 rounded-full bg-primary" />
-               <div className="absolute bottom-10 left-10 w-2 h-2 rounded-full bg-primary" />
+               <p className="relative z-10 text-2xl md:text-4xl text-foreground font-semibold leading-tight tracking-tight">
+                 We are a global team of experts who help industries build better systems. From railways to software, we make sure your technology is safe, modern, and reliable.
+               </p>
+               
+               <div className="mt-10 flex gap-4">
+                  <div className="h-[1px] flex-1 bg-gradient-to-r from-primary to-transparent self-center" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Onmog Softsol Identity</span>
+               </div>
             </div>
           </motion.div>
         </div>
@@ -82,7 +90,7 @@ const WhoWeAre = () => {
         transition={{ duration: 2, repeat: Infinity }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30"
       >
-        <span className="text-[10px] uppercase font-bold tracking-widest">Scroll</span>
+        <span className="text-[10px] uppercase font-bold tracking-widest">Explore</span>
         <ArrowDown className="w-4 h-4" />
       </motion.div>
     </section>
@@ -91,40 +99,59 @@ const WhoWeAre = () => {
 
 const TheProblem = () => {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const xLeft = useTransform(scrollYProgress, [0, 1], [-100, 100]);
-  const xRight = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
 
   return (
-    <section ref={ref} className="py-32 lg:py-64 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section ref={ref} className="py-32 lg:py-64 px-6 relative">
+      {/* Background large text */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-foreground/[0.02] select-none pointer-events-none uppercase tracking-tighter">
+        Purpose
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader 
-          subtitle="02. The Challenge" 
-          title={<>Stagnation is <br /> <span className="opacity-40">The Enemy.</span></>} 
+          subtitle="02. Why We Exist" 
+          title={<>Don't Get <br /> <span className="opacity-40">Left Behind.</span></>} 
           centered
         />
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
-          <motion.div style={{ x: xLeft }} className="space-y-8">
-            <div className="p-10 rounded-[3rem] bg-destructive/5 border border-destructive/10 backdrop-blur-xl group hover:bg-destructive/10 transition-colors duration-500">
-               <AlertTriangle className="w-12 h-12 text-destructive mb-6 group-hover:scale-110 transition-transform" />
-               <h3 className="text-3xl font-black uppercase mb-4">The Legacy Trap</h3>
-               <p className="text-muted-foreground font-medium text-lg leading-relaxed">
-                 Traditional infrastructure often suffers from technological stagnation and safety-critical gaps. Relying on legacy systems without modernization leads to inefficiency, risk, and missed opportunities for millions.
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="group"
+          >
+            <div className="h-full p-12 rounded-[4rem] bg-gradient-to-br from-destructive/5 to-transparent border border-glass-border backdrop-blur-sm group-hover:border-destructive/20 transition-all duration-700 relative overflow-hidden">
+               <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-destructive/5 rounded-full blur-3xl group-hover:bg-destructive/10 transition-colors" />
+               
+               <div className="w-20 h-20 rounded-3xl bg-destructive/10 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
+                  <AlertTriangle className="w-10 h-10 text-destructive" />
+               </div>
+               
+               <h3 className="text-4xl font-black uppercase mb-6 tracking-tighter">Moving Beyond <br /> Old Tech</h3>
+               <p className="text-muted-foreground font-medium text-xl leading-relaxed">
+                 Using outdated systems can lead to high costs and safety risks. We help you replace old technology with modern solutions that work better for everyone.
                </p>
             </div>
           </motion.div>
-
-          <motion.div style={{ x: xRight }} className="space-y-8">
-            <div className="p-10 rounded-[3rem] bg-primary/5 border border-primary/10 backdrop-blur-xl group hover:bg-primary/10 transition-colors duration-500">
-               <Lightbulb className="w-12 h-12 text-primary mb-6 group-hover:scale-110 transition-transform" />
-               <h3 className="text-3xl font-black uppercase mb-4">The Critical Need</h3>
-               <p className="text-muted-foreground font-medium text-lg leading-relaxed">
-                 In an era of rapid digital shift, safety-critical systems require more than just updates; they require a fundamental reimagining through the lens of zero-error engineering and SIL standards.
+ 
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="group"
+          >
+            <div className="h-full p-12 rounded-[4rem] bg-gradient-to-br from-primary/5 to-transparent border border-glass-border backdrop-blur-sm group-hover:border-primary/20 transition-all duration-700 relative overflow-hidden lg:mt-24">
+               <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors" />
+               
+               <div className="w-20 h-20 rounded-3xl bg-primary/10 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
+                  <Lightbulb className="w-10 h-10 text-primary" />
+               </div>
+               
+               <h3 className="text-4xl font-black uppercase mb-6 tracking-tighter">Safety <br /> First</h3>
+               <p className="text-muted-foreground font-medium text-xl leading-relaxed">
+                 In today's world, safety is the most important thing. We build systems that follow the highest standards to keep people and businesses safe.
                </p> 
             </div>
           </motion.div>
