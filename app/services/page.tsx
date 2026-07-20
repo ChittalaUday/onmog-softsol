@@ -1,14 +1,13 @@
-import { Metadata } from "next";
-import { ServicesPageClient } from "@/components/pages/ServicesPageClient";
+import type { Metadata } from "next";
+import Services from "@/components/services";
 
 export const metadata: Metadata = {
-  title: "Service Catalog | Engineering \u0026 Digital Solutions",
-  description: "Browse our comprehensive catalog of 40+ specialized services in Rail Engineering, IT Solutions, Workforce Management, and Digital Growth.",
-  alternates: {
-    canonical: "/services",
-  },
+  title: "Services — Onmog Softsol",
+  description:
+    "Ten services across four disciplines: rail engineering, workforce & staffing, IT solutions and digital growth.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {
-  return <ServicesPageClient />;
+  return <Services />;
 }
