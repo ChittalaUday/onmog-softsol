@@ -12,9 +12,9 @@ const MENU_CATS = [
     icon: "M4 15 H20 M4 9 H20 M7 4 L7 20 M17 4 L17 20",
     items: [
       { name: "Rail Signalling", href: "/services/rail" },
-      { name: "Rail Consultancy", href: "/services" },
-      { name: "Testing & Commissioning", href: "/services/rail" },
-      { name: "RAMS & Assurance", href: "/services" },
+      { name: "Rail Consultancy", href: "/services/rail-consultancy" },
+      { name: "Testing & Commissioning", href: "/services/testing-commissioning" },
+      { name: "RAMS & Assurance", href: "/services/rams-assurance" },
     ],
   },
   {
@@ -24,9 +24,9 @@ const MENU_CATS = [
     icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 11 a4 4 0 1 0 0-8 a4 4 0 0 0 0 8 M23 21v-2a4 4 0 0 0-3-3.87",
     items: [
       { name: "Contract Staffing", href: "/services/staffing" },
-      { name: "Permanent Recruitment", href: "/services" },
-      { name: "Payroll Services", href: "/services" },
-      { name: "HR Outsourcing", href: "/services" },
+      { name: "Permanent Recruitment", href: "/services/permanent-recruitment" },
+      { name: "Payroll Services", href: "/services/payroll-services" },
+      { name: "HR Outsourcing", href: "/services/hr-outsourcing" },
     ],
   },
   {
@@ -36,9 +36,9 @@ const MENU_CATS = [
     icon: "M16 18 L22 12 L16 6 M8 6 L2 12 L8 18",
     items: [
       { name: "Web Development", href: "/services/digital" },
-      { name: "App Development", href: "/services" },
-      { name: "ERP Integration", href: "/services" },
-      { name: "Cloud & DevOps", href: "/services" },
+      { name: "App Development", href: "/services/app-development" },
+      { name: "ERP Integration", href: "/services/erp-integration" },
+      { name: "Cloud & DevOps", href: "/services/cloud-devops" },
     ],
   },
   {
@@ -47,9 +47,9 @@ const MENU_CATS = [
     tint: "rgba(122,178,36,0.14)",
     icon: "M23 6 L13.5 15.5 L8.5 10.5 L1 18 M17 6 H23 V12",
     items: [
-      { name: "SEO & Search", href: "/services" },
-      { name: "PPC & Performance", href: "/services" },
-      { name: "Brand Strategy", href: "/services" },
+      { name: "SEO & Search", href: "/services/seo-search" },
+      { name: "PPC & Performance", href: "/services/ppc-performance" },
+      { name: "Brand Strategy", href: "/services/brand-strategy" },
     ],
   },
 ];

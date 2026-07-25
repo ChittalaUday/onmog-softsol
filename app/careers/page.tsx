@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
 import RevealEffect from "@/components/reveal-effect";
+import CareersList from "@/components/careers-list";
+import { getCareers, getDepartments } from "@/lib/cms";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Careers — Onmog Softsol",
@@ -14,14 +18,6 @@ const PERKS = [
   { title: "Train & grow", desc: "The Hire-Train-Deploy model applies inside too — structured technical training and IRSE-track mentorship.", color: "#14a8a2", tint: "rgba(20,168,162,0.12)", icon: "M22 10 L12 5 L2 10 l10 5 l10 -5 M6 12 v5 c0 1.66 2.69 3 6 3 s6 -1.34 6 -3 v-5" },
   { title: "Two worlds", desc: "Move between heavy engineering and modern software — few firms let you do both in one career.", color: "#3fa03c", tint: "rgba(63,160,60,0.13)", icon: "M16 18 L22 12 L16 6 M8 6 L2 12 L8 18" },
   { title: "Ownership culture", desc: "Small teams, end-to-end responsibility, zero-error standards — and the trust that comes with them.", color: "#6da41c", tint: "rgba(122,178,36,0.12)", icon: "M20 6 9 17l-5-5" },
-];
-
-const ROLES = [
-  { title: "Senior Signalling Design Engineer", team: "Rail Engineering", loc: "Hyderabad / On-site", type: "Full-time", color: "#1d59c2", tint: "rgba(29,89,194,0.13)", icon: "M4 11 H20 M4.5 19 L2 22 M19.5 19 L22 22 M12 2 C8 2 4 2.5 4 6 V15.5 A3.5 3.5 0 0 0 7.5 19 H16.5 A3.5 3.5 0 0 0 20 15.5 V6 C20 2.5 16 2 12 2" },
-  { title: "Testing & Commissioning Engineer", team: "Rail Engineering", loc: "Project sites", type: "Full-time", color: "#1d59c2", tint: "rgba(29,89,194,0.13)", icon: "M9 11 l3 3 L22 4 M21 12 v7 a2 2 0 0 1 -2 2 H5 a2 2 0 0 1 -2 -2 V5 a2 2 0 0 1 2 -2 h11" },
-  { title: "Full-stack Developer (React/Node)", team: "IT Solutions", loc: "Hyderabad / Hybrid", type: "Full-time", color: "#3fa03c", tint: "rgba(63,160,60,0.13)", icon: "M16 18 L22 12 L16 6 M8 6 L2 12 L8 18" },
-  { title: "Technical Recruiter", team: "Workforce & Staffing", loc: "Hyderabad", type: "Full-time", color: "#14a8a2", tint: "rgba(20,168,162,0.12)", icon: "M11 19 a8 8 0 1 0 0-16 a8 8 0 0 0 0 16 M21 21 L16.65 16.65" },
-  { title: "SEO & Performance Analyst", team: "Digital Growth", loc: "Remote (India)", type: "Contract", color: "#6da41c", tint: "rgba(122,178,36,0.12)", icon: "M23 6 L13.5 15.5 L8.5 10.5 L1 18 M17 6 H23 V12" },
 ];
 
 const HIRING = [
@@ -38,7 +34,9 @@ const gridBg = {
 };
 const kicker = { fontSize: 11, fontWeight: 800, letterSpacing: "0.26em", textTransform: "uppercase" as const, color: "#1d59c2", marginBottom: 14 };
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const [jobs, departments] = await Promise.all([getCareers(), getDepartments()]);
+
   return (
     <>
       <RevealEffect />
@@ -91,40 +89,7 @@ export default function CareersPage() {
           <div style={kicker}>Open positions</div>
           <h2 style={{ margin: 0, fontSize: "clamp(26px,3.4vw,44px)", fontWeight: 800, letterSpacing: "-0.025em" }}>Current openings</h2>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          {ROLES.map((r) => (
-            <a
-              key={r.title}
-              href="mailto:info@onmog.com?subject=Application"
-              data-reveal
-              className="role-row"
-              style={{ "--hc": r.color, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 18, flexWrap: "wrap", padding: "24px 28px", borderRadius: 18, background: "linear-gradient(155deg,#ffffff,#f3f6fc)", border: "1px solid rgba(13,34,72,0.08)", color: "inherit", transition: "transform .35s,border-color .35s,box-shadow .35s" } as React.CSSProperties}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 18, minWidth: 0 }}>
-                <span style={{ flex: "none", display: "flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, borderRadius: 12, background: r.tint, color: r.color }}>
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d={r.icon} />
-                  </svg>
-                </span>
-                <div style={{ minWidth: 0 }}>
-                  <h3 style={{ margin: "0 0 4px", fontSize: 17, fontWeight: 800 }}>{r.title}</h3>
-                  <span style={{ fontSize: 12.5, color: "#5d6c8a" }}>
-                    {r.team} · {r.loc}
-                  </span>
-                </div>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                <span style={{ padding: "6px 14px", borderRadius: 999, fontSize: 11.5, fontWeight: 700, color: r.color, background: r.tint }}>{r.type}</span>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 700, color: "#4a5a7a" }}>
-                  Apply{" "}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
+        <CareersList jobs={jobs} departments={departments} />
         <p style={{ margin: "26px 0 0", fontSize: 13.5, color: "#8a94ab" }}>
           Don&apos;t see your role? Write to <a href="mailto:info@onmog.com">info@onmog.com</a> — we hire ahead of openings for exceptional people.
         </p>
