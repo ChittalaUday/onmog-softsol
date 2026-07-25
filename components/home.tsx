@@ -707,7 +707,7 @@ export default function Home() {
                 left: "50%",
                 top: "50%",
                 width: "min(520px,86vw)",
-                marginLeft: "min(-260px,-43vw)",
+                marginLeft: "max(-260px,-43vw)",
                 transform: "translate(0,-50%)",
                 transition: "transform .7s cubic-bezier(.22,1,.36,1),opacity .7s,filter .7s",
                 borderRadius: 24,
