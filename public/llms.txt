@@ -1,0 +1,20 @@
+# Onmog Softsol
+
+> Onmog Softsol delivers IT staffing, web & mobile software development, rail signaling engineering, and digital marketing services that help businesses innovate and scale.
+
+## Core Sections & Pages
+- [Home](https://www.onmog.com/): Enterprise technology solutions, staffing, engineering, and digital marketing overview.
+- [About Us](https://www.onmog.com/about): Mission, timeline, leadership vision, values, and engineering history.
+- [Services Directory](https://www.onmog.com/services): Full catalogue of Rail Signaling, Staffing, Digital Development, and Marketing.
+- [Careers](https://www.onmog.com/careers): Active career opportunities, company culture, benefits, and open applications.
+
+## Services Breakdown
+- [Rail Signaling Engineering](https://www.onmog.com/services/rail): Interlocking designs, RAMS assurance, testing, and consultancy.
+- [Contract & IT Staffing](https://www.onmog.com/services/staffing): Technical talent sourcing, contract staffing, permanent recruitment, and HR outsourcing.
+- [Web & Mobile Software Development](https://www.onmog.com/services/digital): Enterprise Web applications, Mobile apps, Cloud/DevOps, and ERP integrations.
+- [Digital Marketing & Brand Growth](https://www.onmog.com/services/seo-search): SEO optimization, PPC performance campaigns, and brand strategy.
+
+## Contact Information
+- **Email:** hello@onmogsoftsol.com
+- **Phone:** +91 9000161826
+- **Address:** The Business Park – by Pranava Group, 9th Floor, Kondapur, Hyderabad, Telangana – 500084, India

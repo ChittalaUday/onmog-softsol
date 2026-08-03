@@ -61,7 +61,7 @@ export default async function CareersPage() {
             <a href="#roles" style={{ display: "inline-block", padding: "15px 32px", borderRadius: 14, fontSize: 15, fontWeight: 700, color: "#fff", background: "linear-gradient(135deg,#1d59c2,#14a8a2)", boxShadow: "0 8px 30px rgba(29,89,194,0.4)" }}>
               See open roles
             </a>
-            <a href="mailto:info@onmog.com" className="ghostbtn" style={{ display: "inline-block", padding: "15px 32px", borderRadius: 14, fontSize: 15, fontWeight: 700, color: "#0e1a2e", background: "rgba(13,34,72,0.045)", border: "1px solid rgba(13,34,72,0.12)" }}>
+            <a href="mailto:hello@onmogsoftsol.com" className="ghostbtn" style={{ display: "inline-block", padding: "15px 32px", borderRadius: 14, fontSize: 15, fontWeight: 700, color: "#0e1a2e", background: "rgba(13,34,72,0.045)", border: "1px solid rgba(13,34,72,0.12)" }}>
               Send your CV
             </a>
           </div>
@@ -91,7 +91,7 @@ export default async function CareersPage() {
         </div>
         <CareersList jobs={jobs} departments={departments} />
         <p style={{ margin: "26px 0 0", fontSize: 13.5, color: "#8a94ab" }}>
-          Don&apos;t see your role? Write to <a href="mailto:info@onmog.com">info@onmog.com</a> — we hire ahead of openings for exceptional people.
+          Don&apos;t see your role? Write to <a href="mailto:hello@onmogsoftsol.com">hello@onmogsoftsol.com</a> — we hire ahead of openings for exceptional people.
         </p>
       </section>
 

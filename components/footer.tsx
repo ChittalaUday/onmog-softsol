@@ -79,11 +79,11 @@ export default function Footer({ full = false }: { full?: boolean }) {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
           <span style={colLabel}>Reach us</span>
-          <a href="mailto:info@onmog.com" style={colLink}>
-            info@onmog.com
+          <a href="mailto:hello@onmogsoftsol.com" style={colLink}>
+            hello@onmogsoftsol.com
           </a>
-          <a href="tel:+918977621612" style={colLink}>
-            +91 89776 21612
+          <a href="tel:+919000161826" style={colLink}>
+            +91 9000161826
           </a>
           <span style={{ fontSize: 13.5, color: "#8a94ab" }}>Hyderabad, India</span>
         </div>

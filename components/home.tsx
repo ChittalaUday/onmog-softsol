@@ -774,7 +774,7 @@ export default function Home() {
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z M12 13 a3 3 0 1 0 0-6 a3 3 0 0 0 0 6" />
                   </svg>
                 </span>
-                <span style={{ fontSize: 13, lineHeight: 1.6, color: "#33456b" }}>The Business Park – by Pranava Group, 4th Floor, Kondapur, Hyderabad, Telangana – 500084</span>
+                <span style={{ fontSize: 13, lineHeight: 1.6, color: "#33456b" }}>The Business Park – by Pranava Group, 9th Floor, Kondapur, Hyderabad, Telangana – 500084</span>
               </div>
               <div style={{ display: "flex", gap: 13, alignItems: "center" }}>
                 <span style={{ flex: "none", display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: 10, background: "rgba(20,168,162,0.12)", color: "#14a8a2" }}>
@@ -782,8 +782,8 @@ export default function Home() {
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                   </svg>
                 </span>
-                <a href="tel:+918977621612" style={{ fontSize: 13.5, fontWeight: 600, color: "#33456b" }}>
-                  +91 89776 21612
+                <a href="tel:+919000161826" style={{ fontSize: 13.5, fontWeight: 600, color: "#33456b" }}>
+                  +91 9000161826
                 </a>
               </div>
               <div style={{ display: "flex", gap: 13, alignItems: "center" }}>
@@ -792,8 +792,8 @@ export default function Home() {
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6" />
                   </svg>
                 </span>
-                <a href="mailto:info@onmog.com" style={{ fontSize: 13.5, fontWeight: 600, color: "#33456b" }}>
-                  info@onmog.com
+                <a href="mailto:hello@onmogsoftsol.com" style={{ fontSize: 13.5, fontWeight: 600, color: "#33456b" }}>
+                  hello@onmogsoftsol.com
                 </a>
               </div>
             </div>

@@ -66,8 +66,8 @@ Quality Assurance: Adherence to the most stringent international standards to en
 End-to-End Ownership: We act as a true extension of your team from initial design to ongoing support.
 13. Contact Information
 Onmog Softsol Private Limited
-Corporate Address: The Business Park – by Pranava Group, 4th Floor, Kondapur, Hyderabad, Telangana - 500084.
-Contact Number: +91 89776 21612
-Email: info@prodigyhrm.com
-Website: www.prodigyhrm.com
+Corporate Address: The Business Park – by Pranava Group, 9th Floor, Kondapur, Hyderabad, Telangana - 500084.
+Contact Number: +91 9000161826
+Email: hello@onmogsoftsol.com
+Website: www.onmogsoftsol.com
 Transforming Challenges into Sustainable Solutions.

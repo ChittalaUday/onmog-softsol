@@ -46,6 +46,14 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
+  icons: {
+    icon: [
+      { url: "/logo.png", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   alternates: { canonical: "/" },
 };
 
@@ -55,7 +63,8 @@ const organizationJsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   description: SITE_DESCRIPTION,
-  email: "info@onmog.com",
+  email: "hello@onmogsoftsol.com",
+  telephone: "+91 9000161826",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Hyderabad",
