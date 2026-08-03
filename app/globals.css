@@ -174,7 +174,7 @@ a:hover {
   background: rgba(13, 34, 72, 0.06) !important;
   color: #0e1a2e !important;
 }
-.orbit-flip:hover {
+.orbit-card:hover .orbit-flip {
   transform: rotateY(180deg);
 }
 /* raise on hover; per-card accent set via --hc */

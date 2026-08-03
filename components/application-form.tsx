@@ -151,7 +151,12 @@ export default function ApplicationForm({ job, accent, tint }: { job: CmsJob; ac
     setStatus("submitting");
     try {
       const res = await fetch("/api/careers/apply", { method: "POST", body: fd });
-      const data = await res.json();
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = { error: "Received invalid response from server." };
+      }
       if (!res.ok || !data.success) {
         setStatus("error");
         setError(data.error || "Something went wrong. Please try again.");

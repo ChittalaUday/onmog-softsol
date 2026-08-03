@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
 import RevealEffect from "@/components/reveal-effect";
-import CareersList from "@/components/careers-list";
+import CareersList, { CareersLoadingSkeleton } from "@/components/careers-list";
 import { getCareers, getDepartments } from "@/lib/cms";
 
 export const dynamic = "force-dynamic";
@@ -34,9 +35,12 @@ const gridBg = {
 };
 const kicker = { fontSize: 11, fontWeight: 800, letterSpacing: "0.26em", textTransform: "uppercase" as const, color: "#1d59c2", marginBottom: 14 };
 
-export default async function CareersPage() {
+async function CareersListSection() {
   const [jobs, departments] = await Promise.all([getCareers(), getDepartments()]);
+  return <CareersList jobs={jobs} departments={departments} />;
+}
 
+export default function CareersPage() {
   return (
     <>
       <RevealEffect />
@@ -89,7 +93,9 @@ export default async function CareersPage() {
           <div style={kicker}>Open positions</div>
           <h2 style={{ margin: 0, fontSize: "clamp(26px,3.4vw,44px)", fontWeight: 800, letterSpacing: "-0.025em" }}>Current openings</h2>
         </div>
-        <CareersList jobs={jobs} departments={departments} />
+        <Suspense fallback={<CareersLoadingSkeleton />}>
+          <CareersListSection />
+        </Suspense>
         <p style={{ margin: "26px 0 0", fontSize: 13.5, color: "#8a94ab" }}>
           Don&apos;t see your role? Write to <a href="mailto:hello@onmogsoftsol.com">hello@onmogsoftsol.com</a> — we hire ahead of openings for exceptional people.
         </p>

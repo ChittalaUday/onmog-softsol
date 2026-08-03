@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 export type QuestionType = "SHORT_TEXT" | "LONG_TEXT" | "SINGLE_CHOICE" | "MULTIPLE_CHOICE" | "YES_NO" | "FILE";
 
 export type CmsJobQuestion = {
@@ -25,6 +27,11 @@ export type CmsJob = {
   requiredExperience: string | null;
   closingDate: string | null;
   questions: CmsJobQuestion[];
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
+  metadata?: { title?: string; description?: string; metaTitle?: string; metaDescription?: string } | null;
 };
 
 function cmsHeaders(): { base: string; key: string } | null {
@@ -33,7 +40,22 @@ function cmsHeaders(): { base: string; key: string } | null {
   return base && key ? { base, key } : null;
 }
 
-export async function getCareers(department?: string): Promise<CmsJob[]> {
+async function safeJsonFetch<T>(res: Response): Promise<T | null> {
+  if (!res.ok) return null;
+  const contentType = res.headers.get("content-type") || "";
+  if (!contentType.includes("json")) {
+    return null;
+  }
+  try {
+    const text = await res.text();
+    if (!text || text.trim().startsWith("<")) return null;
+    return JSON.parse(text) as T;
+  } catch {
+    return null;
+  }
+}
+
+export const getCareers = cache(async (department?: string): Promise<CmsJob[]> => {
   const cfg = cmsHeaders();
   if (!cfg) return [];
 
@@ -42,15 +64,14 @@ export async function getCareers(department?: string): Promise<CmsJob[]> {
     url.searchParams.set("limit", "100");
     if (department) url.searchParams.set("department", department);
     const res = await fetch(url, { headers: { "x-api-key": cfg.key } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.jobs ?? [];
+    const data = await safeJsonFetch<{ jobs?: CmsJob[] }>(res);
+    return data?.jobs ?? [];
   } catch {
     return [];
   }
-}
+});
 
-export async function getCareerBySlug(slug: string): Promise<CmsJob | null> {
+export const getCareerBySlug = cache(async (slug: string): Promise<CmsJob | null> => {
   const cfg = cmsHeaders();
   if (!cfg) return null;
 
@@ -58,15 +79,14 @@ export async function getCareerBySlug(slug: string): Promise<CmsJob | null> {
     const res = await fetch(`${cfg.base}/api/public/careers/${encodeURIComponent(slug)}`, {
       headers: { "x-api-key": cfg.key },
     });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.job ?? null;
+    const data = await safeJsonFetch<{ job?: CmsJob }>(res);
+    return data?.job ?? null;
   } catch {
     return null;
   }
-}
+});
 
-export async function getDepartments(): Promise<string[]> {
+export const getDepartments = cache(async (): Promise<string[]> => {
   const cfg = cmsHeaders();
   if (!cfg) return [];
 
@@ -74,12 +94,23 @@ export async function getDepartments(): Promise<string[]> {
     const res = await fetch(`${cfg.base}/api/public/careers/departments`, {
       headers: { "x-api-key": cfg.key },
     });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.departments ?? [];
+    const data = await safeJsonFetch<{ departments?: string[] }>(res);
+    return data?.departments ?? [];
   } catch {
     return [];
   }
+});
+
+export function formatExperience(exp: string | null | undefined): string | null {
+  if (!exp) return null;
+  const trimmed = exp.trim();
+  if (!trimmed) return null;
+  const lower = trimmed.toLowerCase();
+  if (lower.includes("experience")) return trimmed;
+  if (lower.includes("year") || lower.includes("yrs") || lower.includes("yr")) {
+    return `${trimmed} Experience`;
+  }
+  return `${trimmed} Years Experience`;
 }
 
 export const JOB_TYPE_LABELS: Record<CmsJob["jobType"], string> = {

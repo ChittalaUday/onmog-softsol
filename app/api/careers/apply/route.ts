@@ -8,11 +8,23 @@ export async function POST(request: NextRequest) {
   }
 
   const formData = await request.formData();
-  const res = await fetch(`${base}/api/public/careers/apply`, {
-    method: "POST",
-    headers: { "x-api-key": key },
-    body: formData,
-  });
-  const data = await res.json().catch(() => ({ error: "Unexpected response from careers API" }));
-  return NextResponse.json(data, { status: res.status });
+  try {
+    const res = await fetch(`${base}/api/public/careers/apply`, {
+      method: "POST",
+      headers: { "x-api-key": key },
+      body: formData,
+    });
+
+    const text = await res.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { error: "Received non-JSON response from CMS API" };
+    }
+
+    return NextResponse.json(data, { status: res.ok ? 200 : res.status || 500 });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || "Failed to reach CMS API" }, { status: 500 });
+  }
 }

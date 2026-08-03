@@ -365,7 +365,7 @@ export default function Home() {
           const Rx = Math.min(620, window.innerWidth * 0.42) * grow;
           const Ry = Math.min(250, window.innerHeight * 0.3) * grow;
           cards.forEach((c, i) => {
-            if (c.dataset.zooming) return;
+            if (c.dataset.zooming || c.dataset.hover) return;
             const a = base + (i / cards.length) * Math.PI * 2;
             const x = Math.cos(a) * Rx;
             const z = Math.sin(a);
@@ -497,12 +497,15 @@ export default function Home() {
               {ORBIT.map((oc) => (
                 <div
                   key={oc.name}
+                  className="orbit-card"
                   data-orbit-card
                   onClick={openOrbitCard(oc)}
+                  onMouseEnter={(e) => (e.currentTarget.dataset.hover = "1")}
+                  onMouseLeave={(e) => delete e.currentTarget.dataset.hover}
                   style={{ position: "absolute", left: "50%", top: "50%", width: 128, height: 148, margin: "-74px 0 0 -64px", transformStyle: "preserve-3d", opacity: 0, pointerEvents: "auto", cursor: "pointer" }}
                 >
-                  <div className="orbit-flip" style={{ width: "100%", height: "100%", transformStyle: "preserve-3d", transition: "transform .8s cubic-bezier(.22,1,.36,1)" }}>
-                    <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 11, borderRadius: 18, background: "linear-gradient(160deg,rgba(255,255,255,0.94),rgba(248,250,253,0.96))", border: "1px solid rgba(13,34,72,0.09)", backdropFilter: "blur(16px)", boxShadow: "0 18px 50px rgba(16,34,72,0.12)" }}>
+                  <div className="orbit-flip" style={{ width: "100%", height: "100%", transformStyle: "preserve-3d", WebkitTransformStyle: "preserve-3d", transition: "transform .8s cubic-bezier(.22,1,.36,1)" }}>
+                    <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 11, borderRadius: 18, background: "linear-gradient(160deg,rgba(255,255,255,0.94),rgba(248,250,253,0.96))", border: "1px solid rgba(13,34,72,0.09)", backdropFilter: "blur(16px)", boxShadow: "0 18px 50px rgba(16,34,72,0.12)" }}>
                       <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, borderRadius: 13, background: oc.tint, color: oc.color, boxShadow: `0 0 24px ${oc.tint}` }}>
                         <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d={oc.icon} />
@@ -510,7 +513,7 @@ export default function Home() {
                       </span>
                       <span style={{ fontSize: 11.5, fontWeight: 700, letterSpacing: "0.03em", color: "#1e2f4f", textAlign: "center", padding: "0 10px", lineHeight: 1.35 }}>{oc.name}</span>
                     </div>
-                    <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden", transform: "rotateY(180deg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, borderRadius: 18, background: `linear-gradient(160deg,${oc.tint},rgba(255,255,255,0.95))`, border: `1px solid ${oc.tint}`, backdropFilter: "blur(16px)" }}>
+                    <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, borderRadius: 18, background: `linear-gradient(160deg,${oc.tint},rgba(255,255,255,0.95))`, border: `1px solid ${oc.tint}`, backdropFilter: "blur(16px)" }}>
                       <span style={{ fontSize: 20, fontWeight: 800, color: oc.color }}>{oc.stat}</span>
                       <span style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#5d6c8a", textAlign: "center", padding: "0 8px" }}>{oc.statLabel}</span>
                     </div>
