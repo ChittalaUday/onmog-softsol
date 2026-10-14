@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const base = process.env.CMS_API_URL;
+  const base = process.env.CMS_API_URL?.replace(/\/+$/, "");
   const key = process.env.CMS_API_KEY;
   if (!base || !key) {
     return NextResponse.json({ error: "Careers API is not configured" }, { status: 500 });

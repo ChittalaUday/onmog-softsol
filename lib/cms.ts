@@ -35,7 +35,7 @@ export type CmsJob = {
 };
 
 function cmsHeaders(): { base: string; key: string } | null {
-  const base = process.env.CMS_API_URL;
+  const base = process.env.CMS_API_URL?.replace(/\/+$/, "");
   const key = process.env.CMS_API_KEY;
   return base && key ? { base, key } : null;
 }
