@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import { Umami } from "@/components/analytics/umami";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -87,6 +88,7 @@ export default function RootLayout({
         />
         <Navbar />
         <main>{children}</main>
+        <Umami />
       </body>
     </html>
   );
